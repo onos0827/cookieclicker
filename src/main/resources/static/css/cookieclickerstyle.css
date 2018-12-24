@@ -17,6 +17,7 @@ body
 	top:15%;
 	width:100%;
 	text-align:center;
+	pointer-events: none;
 }
 
 #bigCookie
@@ -29,12 +30,21 @@ body
 }
 
 
+
+
+#itemName {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+	font-size: 170%;
+	font-weight: bolder;
+	pointer-events: none;
+}
+
 #itemList
 {
 	position:absolute;
 	left:700px;
 	top:128px;
-	cursor:pointer;
 }
 
 #itemList2
@@ -42,7 +52,85 @@ body
 	position:absolute;
 	left:700px;
 	top:384px;
+}
+
+
+#itemIcon1
+{
+	position:absolute;
+	left:700px;
+	top:128px;
+	z-index: 1;
+	cursor:pointer;
+
+}
+
+#itemIcon2
+{
+	position:absolute;
+	left:700px;
+	top:192px;
+	z-index: 1;
+	cursor:pointer;
+
+}
+
+#itemIcon3
+{
+	position:absolute;
+	left:700px;
+	top:256px;
+	z-index: 1;
+	cursor:pointer;
+
+}
+
+#itemIcon4
+{
+	position:absolute;
+	left:700px;
+	top:320px;
+	z-index: 1;
 	cursor:pointer;
 }
 
+#itemIcon5
+{
+	position:absolute;
+	left:700px;
+	top:384px;
+	z-index: 1;
+	cursor:pointer;
+
+}
+
+#itemIcon6
+{
+	position:absolute;
+	left:700px;
+	top:448px;
+	z-index: 1;
+	cursor:pointer;
+
+}
+
+#itemIcon7
+{
+	position:absolute;
+	left:700px;
+	top:512px;
+	z-index: 1;
+	cursor:pointer;
+
+}
+
+#itemIcon8
+{
+	position:absolute;
+	left:700px;
+	top:576px;
+	z-index: 1;
+	cursor:pointer;
+
+}
 
