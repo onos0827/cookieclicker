@@ -1,0 +1,48 @@
+body
+{
+	color:#fff;
+	background:#000 url(img/darkNoise.jpg);
+	font-family:Tahoma,Arial,sans-serif;
+	font-size:13px;
+}
+
+
+
+
+#cookieCount
+{
+    font-size: 40px;
+	position:absolute;
+	left:-680px;
+	top:15%;
+	width:100%;
+	text-align:center;
+}
+
+#bigCookie
+{
+	position:absolute;
+	left:30px;
+	top:300px;
+	cursor:pointer;
+	border-radius:128px;
+}
+
+
+#itemList
+{
+	position:absolute;
+	left:700px;
+	top:128px;
+	cursor:pointer;
+}
+
+#itemList2
+{
+	position:absolute;
+	left:700px;
+	top:384px;
+	cursor:pointer;
+}
+
+

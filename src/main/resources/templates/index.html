@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<link href="css/cookieclickerstyle.css" rel="stylesheet" type="text/css">
+    <head>
+        <meta charset="UTF-8" />
+        <title>ゲーム画面</title>
+    </head>
+    <body>
+
+        <!-- 画面左側の表示部分 -->
+            <div id="cookieCount"></div>
+			<div class="cookieAnchor">
+		    <div id="bigCookie"></div>
+			</div>
+		</div>
+
+
+		 <!-- 画面右側の表示部分 -->
+		    <div id="itemList"></div>
+		    <div id="itemList2"></div>
+
+			</div>
+		</div>
+
+    </body>
+</html>
+
+<!-- 画像読み込み -->
+<script type="text/javascript">
+document.getElementById('bigCookie').innerHTML = '<img src="/image/perfectCookie.png">';
+document.getElementById('itemList').innerHTML = '<img src="/image/storeTile.jpg">';
+document.getElementById('itemList2').innerHTML = '<img src="/image/storeTile.jpg">';
+</script>
+
+
+<!-- クッキー数表示 -->
+<script type="text/javascript">
+
+var count = 1000;
+$("#bigCookie").click(function() {
+    document.getElementById( "cookieCount" ).innerHTML = ++count;
+});
+
+function countUp(){
+	document.getElementById( "cookieCount" ).innerHTML = ++count;
+}
+setInterval('countUp()',1000);
+
+
+
+</script>
