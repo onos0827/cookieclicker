@@ -12,20 +12,20 @@ html::-webkit-scrollbar
 }
 
 
-#slide1 {
+#slide_1 {
     max-width: 100%;
     max-height: 100%;
     height:100vh;
 }
 
-#slide2 {
+#slide_2 {
     max-width: 100%;
     max-height: 100%;
     height: 100vh;
 }
 
 
-#cookieCount
+#cookie_count
 {
     -webkit-text-stroke: 2px #000;
     position:absolute;
@@ -40,7 +40,7 @@ html::-webkit-scrollbar
 
 
 
-#bigCookie
+#big_cookie
 {
 	position:absolute;
 	left:40px;
@@ -56,7 +56,7 @@ html::-webkit-scrollbar
 
 
 
-#itemName {
+#item_name {
     -webkit-text-stroke: 1px #000;
     position:absolute;
 	font-size: 170%;
@@ -64,7 +64,7 @@ html::-webkit-scrollbar
 	pointer-events: none;
 }
 
-#itemCount {
+#item_count {
     -webkit-text-stroke: 1px #000;
     position:absolute;
 	font-size: 170%;
@@ -72,7 +72,7 @@ html::-webkit-scrollbar
 	pointer-events: none;
 }
 
-#itemList
+#item_list
 {
 	position:absolute;
 	left:700px;
@@ -80,7 +80,7 @@ html::-webkit-scrollbar
 	top:128px;
 }
 
-#itemList2
+#item_list_2
 {
 	position:absolute;
 	left:700px;
@@ -102,7 +102,7 @@ html::-webkit-scrollbar
 }
 
 
-#itemIcon1
+#item_icon_1
 {
 	position:absolute;
 	left:700px;
@@ -113,17 +113,8 @@ html::-webkit-scrollbar
 }
 
 
-#itemIcon1
-{
-	position:absolute;
-	left:700px;
-	top:128px;
-	z-index: 1;
-	cursor:pointer;
 
-}
-
-#itemIcon2
+#item_icon_2
 {
 	position:absolute;
 	left:700px;
@@ -133,7 +124,7 @@ html::-webkit-scrollbar
 
 }
 
-#itemIcon3
+#item_icon_3
 {
 	position:absolute;
 	left:700px;
@@ -143,7 +134,7 @@ html::-webkit-scrollbar
 
 }
 
-#itemIcon4
+#item_icon_4
 {
 	position:absolute;
 	left:700px;
@@ -152,7 +143,7 @@ html::-webkit-scrollbar
 	cursor:pointer;
 }
 
-#itemIcon5
+#item_icon_5
 {
 	position:absolute;
 	left:700px;
@@ -162,7 +153,7 @@ html::-webkit-scrollbar
 
 }
 
-#itemIcon6
+#item_icon_6
 {
 	position:absolute;
 	left:700px;
@@ -172,7 +163,7 @@ html::-webkit-scrollbar
 
 }
 
-#itemIcon7
+#item_icon_7
 {
 	position:absolute;
 	left:700px;
@@ -182,7 +173,7 @@ html::-webkit-scrollbar
 
 }
 
-#itemIcon8
+#item_icon_8
 {
 	position:absolute;
 	left:700px;
