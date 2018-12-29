@@ -5,6 +5,7 @@
 <link href="css/cookieclickerstyle.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/slick.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
     <head>
         <meta charset="UTF-8" />
         <title>ゲーム画面</title>
@@ -36,7 +37,6 @@
 
 		    <div id="item_list"></div>
 		    <div id="item_list_2"></div>
-		    <div id="bg"></div>
 
 		    <div id="item_icon_1"></div>
 		     <div id="item_name" style="left: 800px; top: 125px;"><p>カーソル </p></div>
@@ -78,7 +78,6 @@ document.getElementById('panel').innerHTML = '<img src="/image/panelVertical1.pn
 document.getElementById('panel_2').innerHTML = '<img src="/image/panelVertical1.png">';
 document.getElementById('panel_3').innerHTML = '<img src="/image/panelVertical1.png">';
 document.getElementById('panel_4').innerHTML = '<img src="/image/panelVertical1.png">';
-document.getElementById('bg').innerHTML = '<img src="/image/bg.png">';
 </script>
 
 <!-- クッキー背景ループ -->
@@ -125,7 +124,26 @@ function count_up(){
 	document.getElementById( "cookie_count" ).innerHTML = ++count;
 }
 setInterval('count_up()',1000);
+</script>
 
 
+<!-- auth関連処理 -->
+<script type="text/javascript">
+window.onload = function() {
+ //クッキー取得
+ var cookie_info = String($.cookie("UI"));
+ var login_id = cookie_info.replace(undefined,"");
 
+ //文字列ランダム生成
+ var len = 32;
+ var chr = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+ var chr_len = chr.length;
+ for(var i=0; i<len; i++){
+	 login_id += chr[Math.floor(Math.random()*chr_len)];
+	}
+
+//クッキー設定
+$.cookie('UI',login_id.slice(0,32),{expires:30, path:'/'});
+};
 </script>
