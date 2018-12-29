@@ -40,20 +40,35 @@
 		    <div id="item_list_2"></div>
 
 		    <div id="item_icon_1"></div>
-		     <div id="item_name" style="left: 800px; top: 125px;"><p>カーソル </p></div>
+		    <div id="buy_item_count_1" style="position:absolute;left: 950px; top: 145px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
+		    <div id="item_name" style="left: 800px; top: 125px;"><p>カーソル </p></div>
+
 		    <div id="item_icon_2"></div>
+		    <div id="buy_item_count_2" style="position:absolute;left: 950px; top: 210px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
 		     <div id="item_name" style="left: 800px; top: 190px;"><p>BBA </p></div>
+
 		    <div id="item_icon_3"></div>
+		    <div id="buy_item_count_3" style="position:absolute;left: 950px; top: 275px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
 		     <div id="item_name" style="left: 800px; top: 255px;"><p>農場 </p></div>
+
 		    <div id="item_icon_4"></div>
+		    <div id="buy_item_count_4" style="position:absolute;left: 950px; top: 340px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
 		     <div id="item_name" style="left: 800px; top: 320px;"><p>鉱山 </p></div>
+
 		    <div id="item_icon_5"></div>
+		    <div id="buy_item_count_5" style="position:absolute;left: 950px; top: 405px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
 		     <div id="item_name" style="left: 800px; top: 385px;"><p>工場 </p></div>
+
 		    <div id="item_icon_6"></div>
+		    <div id="buy_item_count_6" style="position:absolute;left: 950px; top: 465px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
 		     <div id="item_name" style="left: 800px; top: 445px;"><p>銀行 </p></div>
+
 		    <div id="item_icon_7"></div>
+		    <div id="buy_item_count_7" style="position:absolute;left: 950px; top: 530px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
 		     <div id="item_name" style="left: 800px; top: 510px;"><p>魔女の塔 </p></div>
+
 		    <div id="item_icon_8"></div>
+		    <div id="buy_item_count_8" style="position:absolute;left: 950px; top: 595px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
 		     <div id="item_name" style="left: 800px; top: 575px;"><p>宇宙人 </p></div>
 </div>
 
@@ -69,6 +84,7 @@ function diplay_info(status_code,error_message,result) {
 	var result ={
 	     "auth":"user_id"
 	    ,"count_total_cookie":"1500"
+	    ,"count_buy_item":{"item_01":"10","item_02":"20","item_03":"30","item_04":"40","item_05":"50","item_06":"60","item_07":"70","item_08":"80"}
 		,"picture_pass_cookie":"/image/perfectCookie.png"
 		,"picture_pass_item_01":"/image/perfectCookie.png"
 		,"picture_pass_item_02":"/image/storeTile.jpg"
@@ -84,8 +100,18 @@ function diplay_info(status_code,error_message,result) {
 		,"picture_pass_item_12":"/image/panelVertical1.png"
 		};
 
-    //取得した値を
+    //クッキー枚数、アイテム数表示
     document.getElementById('total_cookie_count').innerHTML = result.count_total_cookie;
+    document.getElementById('buy_item_count_1').innerHTML = result.count_buy_item.item_01;
+    document.getElementById('buy_item_count_2').innerHTML = result.count_buy_item.item_02;
+    document.getElementById('buy_item_count_3').innerHTML = result.count_buy_item.item_03;
+    document.getElementById('buy_item_count_4').innerHTML = result.count_buy_item.item_04;
+    document.getElementById('buy_item_count_5').innerHTML = result.count_buy_item.item_05;
+    document.getElementById('buy_item_count_6').innerHTML = result.count_buy_item.item_06;
+    document.getElementById('buy_item_count_7').innerHTML = result.count_buy_item.item_07;
+    document.getElementById('buy_item_count_8').innerHTML = result.count_buy_item.item_08;
+
+    //画像表示
     document.getElementById('big_cookie').innerHTML = '<img src="'+ result.picture_pass_cookie +'">';
     document.getElementById('item_list').innerHTML = '<img src="'+ result.picture_pass_item_02 +'">';
     document.getElementById('item_list_2').innerHTML = '<img src="'+ result.picture_pass_item_02 +'">';
@@ -103,6 +129,7 @@ function diplay_info(status_code,error_message,result) {
     document.getElementById('panel_2').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
     document.getElementById('panel_3').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
     document.getElementById('panel_4').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
+
 
 
     if(status_code ==1){

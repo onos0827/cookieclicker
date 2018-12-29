@@ -54,8 +54,6 @@ html::-webkit-scrollbar
 
 
 
-
-
 #item_name {
     -webkit-text-stroke: 1px #000;
     position:absolute;
@@ -64,13 +62,8 @@ html::-webkit-scrollbar
 	pointer-events: none;
 }
 
-#item_count {
-    -webkit-text-stroke: 1px #000;
-    position:absolute;
-	font-size: 170%;
-	font-weight: bolder;
-	pointer-events: none;
-}
+
+
 
 #item_list
 {
