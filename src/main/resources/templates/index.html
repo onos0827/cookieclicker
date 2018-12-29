@@ -20,6 +20,7 @@
    </ul>
 
         <!-- 画面左側の表示部分 -->
+            <div id="total_cookie_count">10</div>
             <div id="cookie_count"></div>
 		    <div id="big_cookie"></div>
 		    <div id="panel" style="position:absolute;left: 32px; top: 0px;"></div>
@@ -59,26 +60,59 @@
     </body>
 </html>
 
-<!-- 画像読み込み -->
+<!-- 画面表示情報取得処理 -->
 <script type="text/javascript">
-document.getElementById('big_cookie').innerHTML = '<img src="/image/perfectCookie.png">';
-document.getElementById('item_list').innerHTML = '<img src="/image/storeTile.jpg">';
-document.getElementById('item_list_2').innerHTML = '<img src="/image/storeTile.jpg">';
-document.getElementById('item_icon_1').innerHTML = '<img src="/image/item1.png">';
-document.getElementById('item_icon_2').innerHTML = '<img src="/image/item2.png">';
-document.getElementById('item_icon_3').innerHTML = '<img src="/image/item3.png">';
-document.getElementById('item_icon_4').innerHTML = '<img src="/image/item4.png">';
-document.getElementById('item_icon_5').innerHTML = '<img src="/image/item5.png">';
-document.getElementById('item_icon_6').innerHTML = '<img src="/image/item6.png">';
-document.getElementById('item_icon_7').innerHTML = '<img src="/image/item7.png">';
-document.getElementById('item_icon_8').innerHTML = '<img src="/image/item8.png">';
-document.getElementById('slide_1').innerHTML = '<img src="/image/cookieShower2.png">';
-document.getElementById('slide_2').innerHTML = '<img src="/image/cookieShower2.png">';
-document.getElementById('panel').innerHTML = '<img src="/image/panelVertical1.png">';
-document.getElementById('panel_2').innerHTML = '<img src="/image/panelVertical1.png">';
-document.getElementById('panel_3').innerHTML = '<img src="/image/panelVertical1.png">';
-document.getElementById('panel_4').innerHTML = '<img src="/image/panelVertical1.png">';
+function diplay_info(status_code,error_message,result) {
+	//テスト用変数
+	var status_code =0;
+	var error_message ="えらー！";
+	var result ={
+	     "auth":"user_id"
+	    ,"count_total_cookie":"1500"
+		,"picture_pass_cookie":"/image/perfectCookie.png"
+		,"picture_pass_item_01":"/image/perfectCookie.png"
+		,"picture_pass_item_02":"/image/storeTile.jpg"
+		,"picture_pass_item_03":"/image/item1.png"
+		,"picture_pass_item_04":"/image/item2.png"
+		,"picture_pass_item_05":"/image/item3.png"
+		,"picture_pass_item_06":"/image/item4.png"
+		,"picture_pass_item_07":"/image/item5.png"
+		,"picture_pass_item_08":"/image/item6.png"
+		,"picture_pass_item_09":"/image/item7.png"
+		,"picture_pass_item_10":"/image/item8.png"
+		,"picture_pass_item_11":"/image/cookieShower2.png"
+		,"picture_pass_item_12":"/image/panelVertical1.png"
+		};
+
+    //取得した値を
+    document.getElementById('total_cookie_count').innerHTML = result.count_total_cookie;
+    document.getElementById('big_cookie').innerHTML = '<img src="'+ result.picture_pass_cookie +'">';
+    document.getElementById('item_list').innerHTML = '<img src="'+ result.picture_pass_item_02 +'">';
+    document.getElementById('item_list_2').innerHTML = '<img src="'+ result.picture_pass_item_02 +'">';
+    document.getElementById('item_icon_1').innerHTML = '<img src="'+ result.picture_pass_item_03 +'">';
+    document.getElementById('item_icon_2').innerHTML = '<img src="'+ result.picture_pass_item_04 +'">';
+    document.getElementById('item_icon_3').innerHTML = '<img src="'+ result.picture_pass_item_05 +'">';
+    document.getElementById('item_icon_4').innerHTML = '<img src="'+ result.picture_pass_item_06 +'">';
+    document.getElementById('item_icon_5').innerHTML = '<img src="'+ result.picture_pass_item_07 +'">';
+    document.getElementById('item_icon_6').innerHTML = '<img src="'+ result.picture_pass_item_08 +'">';
+    document.getElementById('item_icon_7').innerHTML = '<img src="'+ result.picture_pass_item_09 +'">';
+    document.getElementById('item_icon_8').innerHTML = '<img src="'+ result.picture_pass_item_10 +'">';
+    document.getElementById('slide_1').innerHTML = '<img src="'+ result.picture_pass_item_11 +'">';
+    document.getElementById('slide_2').innerHTML = '<img src="'+ result.picture_pass_item_11 +'">';
+    document.getElementById('panel').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
+    document.getElementById('panel_2').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
+    document.getElementById('panel_3').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
+    document.getElementById('panel_4').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
+
+
+    if(status_code ==1){
+    	alert(error_message);
+    }
+
+};
+diplay_info();
 </script>
+
 
 <!-- クッキー背景ループ -->
 <script type="text/javascript">
@@ -112,24 +146,42 @@ $(function(){
 });
 </script>
 
-<!-- クッキー数表示 -->
+<!-- クッキー数表示/登録処理 -->
 <script type="text/javascript">
 
-var count = 1000;
+var count = document.getElementById( "total_cookie_count").textContent;
+
+//クッキークリック時処理
 $("#big_cookie").click(function() {
     document.getElementById( "cookie_count" ).innerHTML = ++count;
 });
 
+/* //クッキー枚数登録
+function update_cookie_count(){
+	 $.ajax({
+         url:'/cookieclicker/countup',
+         type:'POST',
+         auth:String($.cookie("UI")),
+         data:{
+             'cookie_count':count
+         }
+     })
+}
+setInterval('update_cookie_count()',1000);
+ */
+
+//テスト用
 function count_up(){
 	document.getElementById( "cookie_count" ).innerHTML = ++count;
 }
 setInterval('count_up()',1000);
+
 </script>
 
 
 <!-- auth関連処理 -->
 <script type="text/javascript">
-window.onload = function() {
+function create_auth() {
  //クッキー取得
  var cookie_info = String($.cookie("UI"));
  var login_id = cookie_info.replace(undefined,"");
@@ -146,4 +198,10 @@ window.onload = function() {
 //クッキー設定
 $.cookie('UI',login_id.slice(0,32),{expires:30, path:'/'});
 };
+create_auth();
 </script>
+
+
+
+
+
