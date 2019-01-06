@@ -1,232 +1,282 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <link href="css/slick-theme.css" rel="stylesheet" type="text/css">
+<head>
+<meta charset="UTF-8" />
 <link href="css/slick.css" rel="stylesheet" type="text/css">
 <link href="css/cookieclickerstyle.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <head>
-        <meta charset="UTF-8" />
-        <title>ゲーム画面</title>
-    </head>
-    <body>
+<title>ゲーム画面</title>
+</head>
+<body>
 
-<div class="no_scroll">
-     <!-- スライド -->
-    <ul class="slider">
-    <div id="slide_1"></div>
-    <div id="slide_2"></div>
-   </ul>
+	<div class="no_scroll">
+		<!-- スライド -->
+		<ul class="slider">
+			<div id="slide_1"></div>
+			<div id="slide_2"></div>
+		</ul>
 
-        <!-- 画面左側の表示部分 -->
-            <div id="total_cookie_count">10</div>
-            <div id="cookie_count"></div>
-		    <div id="big_cookie"></div>
-		    <div id="panel" style="position:absolute;left: 32px; top: 0px;"></div>
-		    <div id="panel_2" style="position:absolute;left: 550px; top: 0px;"></div>
+		<!-- 画面左側の表示部分 -->
+		<div id="total_cookie_count">10</div>
+		<div id="cookie_count"></div>
+		<div id="big_cookie"></div>
+		<div id="panel" style="position: absolute; left: 32px; top: 0px;"></div>
+		<div id="panel_2" style="position: absolute; left: 550px; top: 0px;"></div>
 
 
 
 
 
-		 <!-- 画面右側の表示部分 -->
-		 <div id="panel_3" style="position:absolute;left: 684px; top: 0px;"></div>
-		 <div id="panel_4" style="position:absolute;left: 1000px; top: 0px; "></div>
+		<!-- 画面右側の表示部分 -->
+		<div id="panel_3" style="position: absolute; left: 684px; top: 0px;"></div>
+		<div id="panel_4" style="position: absolute; left: 1000px; top: 0px;"></div>
 
 
 
-		    <div id="item_list"></div>
-		    <div id="item_list_2"></div>
+		<div id="item_list"></div>
+		<div id="item_list_2"></div>
 
-		    <div id="item_icon_1"></div>
-		    <div id="buy_item_count_1" style="position:absolute;left: 950px; top: 145px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
-		    <div id="item_name" style="left: 800px; top: 125px;"><p>カーソル </p></div>
+		<div id="item_icon_1"></div>
+		<div id="buy_item_count_1"
+			style="position: absolute; left: 950px; top: 145px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
+			<p>0</p>
+		</div>
+		<div id="item_name" style="left: 800px; top: 125px;">
+			<p>カーソル</p>
+		</div>
 
-		    <div id="item_icon_2"></div>
-		    <div id="buy_item_count_2" style="position:absolute;left: 950px; top: 210px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
-		     <div id="item_name" style="left: 800px; top: 190px;"><p>BBA </p></div>
+		<div id="item_icon_2"></div>
+		<div id="buy_item_count_2"
+			style="position: absolute; left: 950px; top: 210px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
+			<p>0</p>
+		</div>
+		<div id="item_name" style="left: 800px; top: 190px;">
+			<p>BBA</p>
+		</div>
 
-		    <div id="item_icon_3"></div>
-		    <div id="buy_item_count_3" style="position:absolute;left: 950px; top: 275px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
-		     <div id="item_name" style="left: 800px; top: 255px;"><p>農場 </p></div>
+		<div id="item_icon_3"></div>
+		<div id="buy_item_count_3"
+			style="position: absolute; left: 950px; top: 275px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
+			<p>0</p>
+		</div>
+		<div id="item_name" style="left: 800px; top: 255px;">
+			<p>農場</p>
+		</div>
 
-		    <div id="item_icon_4"></div>
-		    <div id="buy_item_count_4" style="position:absolute;left: 950px; top: 340px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
-		     <div id="item_name" style="left: 800px; top: 320px;"><p>鉱山 </p></div>
+		<div id="item_icon_4"></div>
+		<div id="buy_item_count_4"
+			style="position: absolute; left: 950px; top: 340px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
+			<p>0</p>
+		</div>
+		<div id="item_name" style="left: 800px; top: 320px;">
+			<p>鉱山</p>
+		</div>
 
-		    <div id="item_icon_5"></div>
-		    <div id="buy_item_count_5" style="position:absolute;left: 950px; top: 405px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
-		     <div id="item_name" style="left: 800px; top: 385px;"><p>工場 </p></div>
+		<div id="item_icon_5"></div>
+		<div id="buy_item_count_5"
+			style="position: absolute; left: 950px; top: 405px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
+			<p>0</p>
+		</div>
+		<div id="item_name" style="left: 800px; top: 385px;">
+			<p>工場</p>
+		</div>
 
-		    <div id="item_icon_6"></div>
-		    <div id="buy_item_count_6" style="position:absolute;left: 950px; top: 465px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
-		     <div id="item_name" style="left: 800px; top: 445px;"><p>銀行 </p></div>
+		<div id="item_icon_6"></div>
+		<div id="buy_item_count_6"
+			style="position: absolute; left: 950px; top: 465px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
+			<p>0</p>
+		</div>
+		<div id="item_name" style="left: 800px; top: 445px;">
+			<p>銀行</p>
+		</div>
 
-		    <div id="item_icon_7"></div>
-		    <div id="buy_item_count_7" style="position:absolute;left: 950px; top: 530px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
-		     <div id="item_name" style="left: 800px; top: 510px;"><p>魔女の塔 </p></div>
+		<div id="item_icon_7"></div>
+		<div id="buy_item_count_7"
+			style="position: absolute; left: 950px; top: 530px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
+			<p>0</p>
+		</div>
+		<div id="item_name" style="left: 800px; top: 510px;">
+			<p>魔女の塔</p>
+		</div>
 
-		    <div id="item_icon_8"></div>
-		    <div id="buy_item_count_8" style="position:absolute;left: 950px; top: 595px; -webkit-text-stroke: 1px #000;font-size: 170%; font-weight: bolder; pointer-events: none;"><p>0 </p></div>
-		     <div id="item_name" style="left: 800px; top: 575px;"><p>宇宙人 </p></div>
-</div>
+		<div id="item_icon_8"></div>
+		<div id="buy_item_count_8"
+			style="position: absolute; left: 950px; top: 595px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
+			<p>0</p>
+		</div>
+		<div id="item_name" style="left: 800px; top: 575px;">
+			<p>宇宙人</p>
+		</div>
+	</div>
 
-    </body>
+
+
+	<!-- 画面表示情報取得処理 -->
+	<script type="text/javascript">
+		function diplay_info(status_code, error_message, result) {
+			//テスト用変数
+			var status_code = 0;
+			var error_message = "えらー！";
+			var result = {
+				"auth" : "user_id",
+				"count_total_cookie" : "1500",
+				"count_buy_item" : {
+					"item_01" : "10",
+					"item_02" : "20",
+					"item_03" : "30",
+					"item_04" : "40",
+					"item_05" : "50",
+					"item_06" : "60",
+					"item_07" : "70",
+					"item_08" : "80"
+				},
+				"picture_pass_cookie" : "/image/perfectCookie.png",
+				"picture_pass_item_01" : "/image/perfectCookie.png",
+				"picture_pass_item_02" : "/image/storeTile.jpg",
+				"picture_pass_item_03" : "/image/item1.png",
+				"picture_pass_item_04" : "/image/item2.png",
+				"picture_pass_item_05" : "/image/item3.png",
+				"picture_pass_item_06" : "/image/item4.png",
+				"picture_pass_item_07" : "/image/item5.png",
+				"picture_pass_item_08" : "/image/item6.png",
+				"picture_pass_item_09" : "/image/item7.png",
+				"picture_pass_item_10" : "/image/item8.png",
+				"picture_pass_item_11" : "/image/cookieShower2.png",
+				"picture_pass_item_12" : "/image/panelVertical1.png"
+			};
+
+			//クッキー枚数、アイテム数表示
+			$("#total_cookie_count").html(result.count_total_cookie);
+			$("#buy_item_count_1").html(result.count_buy_item.item_01);
+			$("#buy_item_count_2").html(result.count_buy_item.item_02);
+			$("#buy_item_count_3").html(result.count_buy_item.item_03);
+			$("#buy_item_count_4").html(result.count_buy_item.item_04);
+			$("#buy_item_count_5").html(result.count_buy_item.item_05);
+			$("#buy_item_count_6").html(result.count_buy_item.item_06);
+			$("#buy_item_count_7").html(result.count_buy_item.item_07);
+			$("#buy_item_count_8").html(result.count_buy_item.item_08);
+
+			//画像表示
+			$('#big_cookie').html('<img src="'+ result.picture_pass_cookie +'">');
+			$('#item_list').html('<img src="'+ result.picture_pass_item_02 +'">');
+			$('#item_list_2').html('<img src="'+ result.picture_pass_item_02 +'">');
+			$('#item_icon_1').html('<img src="'+ result.picture_pass_item_03 +'">');
+			$('#item_icon_2').html('<img src="'+ result.picture_pass_item_04 +'">');
+			$('#item_icon_3').html('<img src="'+ result.picture_pass_item_05 +'">');
+			$('#item_icon_4').html('<img src="'+ result.picture_pass_item_06 +'">');
+			$('#item_icon_5').html('<img src="'+ result.picture_pass_item_07 +'">');
+			$('#item_icon_6').html('<img src="'+ result.picture_pass_item_08 +'">');
+			$('#item_icon_7').html('<img src="'+ result.picture_pass_item_09 +'">');
+			$('#item_icon_8').html('<img src="'+ result.picture_pass_item_10 +'">');
+			$('#slide_1').html('<img src="'+ result.picture_pass_item_11 +'">');
+			$('#slide_2').html('<img src="'+ result.picture_pass_item_11 +'">');
+			$('#panel').html('<img src="'+ result.picture_pass_item_12 +'">');
+			$('#panel_2').html('<img src="'+ result.picture_pass_item_12 +'">');
+			$('#panel_3').html('<img src="'+ result.picture_pass_item_12 +'">');
+			$('#panel_4').html('<img src="'+ result.picture_pass_item_12 +'">');
+
+			if (status_code == 1) {
+				alert(error_message);
+			}
+
+		};
+		diplay_info();
+	</script>
+
+	<!-- auth関連処理 -->
+	<script type="text/javascript">
+		function create_auth() {
+			//クッキー取得
+			var cookie_info = String($.cookie("UI"));
+			var login_id = cookie_info.replace(undefined, "");
+
+			//文字列ランダム生成
+			var len = 32;
+			var chr = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+			var chr_len = chr.length;
+			for (var i = 0; i < len; i++) {
+				login_id += chr[Math.floor(Math.random() * chr_len)];
+			}
+
+			//クッキー設定
+			$.cookie('UI', login_id.slice(0, 32), {
+				expires : 30,
+				path : '/'
+			});
+		};
+		create_auth();
+	</script>
+
+	<!-- クッキー数表示/登録処理 -->
+	<script type="text/javascript">
+		var count = $("#total_cookie_count").text();
+		console.log(count);
+
+		//クッキークリック時処理
+		$("#big_cookie").click(function() {
+			$("#cookie_count").html(++count);
+		});
+
+		//カウントアップ処理
+		function count_up() {
+			$("#cookie_count").html(++count);
+		}
+		setInterval('count_up()', 1000);
+
+		//クッキー枚数登録
+		function update_cookie_count() {
+			$.ajax({
+				url : '/cookieclicker/countup',
+				type : 'POST',
+				auth : String($.cookie("UI")),
+				data : {
+					'cookie_count' : count
+				}
+			})
+		}
+		setInterval('update_cookie_count()', 10000);
+	</script>
+
+
+
+	<!-- クッキー背景ループ -->
+	<script type="text/javascript">
+		$('.slider').slick({
+			arrows : false,
+			autoplay : true,
+			infinite : true,
+			autoplaySpeed : 0,
+			speed : 20000,
+			swipe : false,
+			vertical : true,
+			cssEase : 'linear',
+			pauseOnFocus : false,
+			pauseOnHover : false,
+			pauseOnDotsHover : false,
+
+		});
+	</script>
+
+	<!-- スクロールロック -->
+	<script type="text/javascript">
+		$(function() {
+			if ($(".no_scroll").length) {
+				$(window).on('wheel', function(e) {
+					e.preventDefault();
+				});
+			} else {
+				$(window).off('wheel');
+			}
+		});
+	</script>
+
+</body>
 </html>
 
-<!-- 画面表示情報取得処理 -->
-<script type="text/javascript">
-function diplay_info(status_code,error_message,result) {
-	//テスト用変数
-	var status_code =0;
-	var error_message ="えらー！";
-	var result ={
-	     "auth":"user_id"
-	    ,"count_total_cookie":"1500"
-	    ,"count_buy_item":{"item_01":"10","item_02":"20","item_03":"30","item_04":"40","item_05":"50","item_06":"60","item_07":"70","item_08":"80"}
-		,"picture_pass_cookie":"/image/perfectCookie.png"
-		,"picture_pass_item_01":"/image/perfectCookie.png"
-		,"picture_pass_item_02":"/image/storeTile.jpg"
-		,"picture_pass_item_03":"/image/item1.png"
-		,"picture_pass_item_04":"/image/item2.png"
-		,"picture_pass_item_05":"/image/item3.png"
-		,"picture_pass_item_06":"/image/item4.png"
-		,"picture_pass_item_07":"/image/item5.png"
-		,"picture_pass_item_08":"/image/item6.png"
-		,"picture_pass_item_09":"/image/item7.png"
-		,"picture_pass_item_10":"/image/item8.png"
-		,"picture_pass_item_11":"/image/cookieShower2.png"
-		,"picture_pass_item_12":"/image/panelVertical1.png"
-		};
-
-    //クッキー枚数、アイテム数表示
-    document.getElementById('total_cookie_count').innerHTML = result.count_total_cookie;
-    document.getElementById('buy_item_count_1').innerHTML = result.count_buy_item.item_01;
-    document.getElementById('buy_item_count_2').innerHTML = result.count_buy_item.item_02;
-    document.getElementById('buy_item_count_3').innerHTML = result.count_buy_item.item_03;
-    document.getElementById('buy_item_count_4').innerHTML = result.count_buy_item.item_04;
-    document.getElementById('buy_item_count_5').innerHTML = result.count_buy_item.item_05;
-    document.getElementById('buy_item_count_6').innerHTML = result.count_buy_item.item_06;
-    document.getElementById('buy_item_count_7').innerHTML = result.count_buy_item.item_07;
-    document.getElementById('buy_item_count_8').innerHTML = result.count_buy_item.item_08;
-
-    //画像表示
-    document.getElementById('big_cookie').innerHTML = '<img src="'+ result.picture_pass_cookie +'">';
-    document.getElementById('item_list').innerHTML = '<img src="'+ result.picture_pass_item_02 +'">';
-    document.getElementById('item_list_2').innerHTML = '<img src="'+ result.picture_pass_item_02 +'">';
-    document.getElementById('item_icon_1').innerHTML = '<img src="'+ result.picture_pass_item_03 +'">';
-    document.getElementById('item_icon_2').innerHTML = '<img src="'+ result.picture_pass_item_04 +'">';
-    document.getElementById('item_icon_3').innerHTML = '<img src="'+ result.picture_pass_item_05 +'">';
-    document.getElementById('item_icon_4').innerHTML = '<img src="'+ result.picture_pass_item_06 +'">';
-    document.getElementById('item_icon_5').innerHTML = '<img src="'+ result.picture_pass_item_07 +'">';
-    document.getElementById('item_icon_6').innerHTML = '<img src="'+ result.picture_pass_item_08 +'">';
-    document.getElementById('item_icon_7').innerHTML = '<img src="'+ result.picture_pass_item_09 +'">';
-    document.getElementById('item_icon_8').innerHTML = '<img src="'+ result.picture_pass_item_10 +'">';
-    document.getElementById('slide_1').innerHTML = '<img src="'+ result.picture_pass_item_11 +'">';
-    document.getElementById('slide_2').innerHTML = '<img src="'+ result.picture_pass_item_11 +'">';
-    document.getElementById('panel').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
-    document.getElementById('panel_2').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
-    document.getElementById('panel_3').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
-    document.getElementById('panel_4').innerHTML = '<img src="'+ result.picture_pass_item_12 +'">';
-
-
-
-    if(status_code ==1){
-    	alert(error_message);
-    }
-
-};
-diplay_info();
-</script>
-
-
-<!-- クッキー背景ループ -->
-<script type="text/javascript">
-$('.slider').slick({
-	  arrows: false,
-	  autoplay: true,
-	  infinite: true,
-	  autoplaySpeed: 0,
-	  speed: 20000,
-	  swipe: false,
-	  vertical: true,
-	  cssEase: 'linear',
-	  pauseOnFocus: false,
-	  pauseOnHover: false,
-	  pauseOnDotsHover: false,
-
-
-});
-</script>
-
-<!-- スクロールロック -->
-<script type="text/javascript">
-$(function(){
-  if($(".no_scroll").length) {
-    $(window).on('wheel',function(e){
-      e.preventDefault();
-    });
-  } else {
-    $(window).off('wheel');
-  }
-});
-</script>
-
-<!-- クッキー数表示/登録処理 -->
-<script type="text/javascript">
-
-var count = document.getElementById( "total_cookie_count").textContent;
-
-//クッキークリック時処理
-$("#big_cookie").click(function() {
-    document.getElementById( "cookie_count" ).innerHTML = ++count;
-});
-
-/* //クッキー枚数登録
-function update_cookie_count(){
-	 $.ajax({
-         url:'/cookieclicker/countup',
-         type:'POST',
-         auth:String($.cookie("UI")),
-         data:{
-             'cookie_count':count
-         }
-     })
-}
-setInterval('update_cookie_count()',1000);
- */
-
-//テスト用
-function count_up(){
-	document.getElementById( "cookie_count" ).innerHTML = ++count;
-}
-setInterval('count_up()',1000);
-
-</script>
-
-
-<!-- auth関連処理 -->
-<script type="text/javascript">
-function create_auth() {
- //クッキー取得
- var cookie_info = String($.cookie("UI"));
- var login_id = cookie_info.replace(undefined,"");
-
- //文字列ランダム生成
- var len = 32;
- var chr = "abcdefghijklmnopqrstuvwxyz0123456789";
-
- var chr_len = chr.length;
- for(var i=0; i<len; i++){
-	 login_id += chr[Math.floor(Math.random()*chr_len)];
-	}
-
-//クッキー設定
-$.cookie('UI',login_id.slice(0,32),{expires:30, path:'/'});
-};
-create_auth();
-</script>
 
 
 
