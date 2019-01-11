@@ -54,7 +54,63 @@ html::-webkit-scrollbar
 
 
 
-#item_name {
+#item_name_1 {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+	font-size: 170%;
+	font-weight: bolder;
+	pointer-events: none;
+}
+
+#item_name_2 {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+	font-size: 170%;
+	font-weight: bolder;
+	pointer-events: none;
+}
+
+#item_name_3 {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+	font-size: 170%;
+	font-weight: bolder;
+	pointer-events: none;
+}
+
+#item_name_4 {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+	font-size: 170%;
+	font-weight: bolder;
+	pointer-events: none;
+}
+
+#item_name_5 {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+	font-size: 170%;
+	font-weight: bolder;
+	pointer-events: none;
+}
+
+#item_name_6 {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+	font-size: 170%;
+	font-weight: bolder;
+	pointer-events: none;
+}
+
+#item_name_7 {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+	font-size: 170%;
+	font-weight: bolder;
+	pointer-events: none;
+}
+
+#item_name_8 {
     -webkit-text-stroke: 1px #000;
     position:absolute;
 	font-size: 170%;

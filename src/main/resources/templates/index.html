@@ -8,6 +8,219 @@
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script>
+	$(function(){
+		<!-- 画面表示情報取得処理 -->
+		function diplay_info(status_code, error_message, result) {
+			//テスト用変数
+			var status_code = 0;
+			var error_message = "えらー！";
+			var result = {
+				"auth" : "user_id",
+				"count_total_cookie" : "1500",
+				"picture_pass_cookie" : "/image/perfectCookie.png",
+				"items":[{
+					"picture_pass_item" : "/image/storeTile.jpg",
+					"item_name" : "storeTile",
+					"item_cost" : "",
+					"count_buy_item" : ""
+				},
+				{
+					"picture_pass_item" : "/image/item1.png",
+					"item_name" : "カーソル",
+					"item_cost" : "2000",
+					"count_buy_item" : "20"
+				},
+				{
+					"picture_pass_item" : "/image/item2.png",
+					"item_name" : "BBA",
+					"item_cost" : "3000",
+					"count_buy_item" : "30"
+				},
+				{
+					"picture_pass_item" : "/image/item3.png",
+					"item_name" : "農場",
+					"item_cost" : "4000",
+					"count_buy_item" : "40"
+				},
+				{
+					"picture_pass_item" : "/image/item4.png",
+					"item_name" : "鉱山",
+					"item_cost" : "5000",
+					"count_buy_item" : "50"
+				},
+				{
+					"picture_pass_item" : "/image/item5.png",
+					"item_name" : "工場",
+					"item_cost" : "6000",
+					"count_buy_item" : "60"
+				},
+				{
+					"picture_pass_item" : "/image/item6.png",
+					"item_name" : "銀行",
+					"item_cost" : "7000",
+					"count_buy_item" : "70"
+				},
+				{
+					"picture_pass_item" : "/image/item7.png",
+					"item_name" : "魔女の塔",
+					"item_cost" : "8000",
+					"count_buy_item" : "80"
+				},
+				{
+					"picture_pass_item" : "/image/item8.png",
+					"item_name" : "宇宙人",
+					"item_cost" : "9000",
+					"count_buy_item" : "90"
+				},
+				{
+					"picture_pass_item" : "/image/cookieShower2.png",
+					"item_name" : "cookieShower",
+					"item_cost" : "",
+					"count_buy_item" : ""
+				},
+				{
+					"picture_pass_item" : "/image/panelVertical1.png",
+					"item_name" : "panel",
+					"item_cost" : "",
+					"count_buy_item" : ""
+				},]
+			};
+
+	        console.log(result);
+	        console.log(result.items[1].item_name);
+
+			//クッキー枚数、アイテム数表示
+			$("#total_cookie_count").html(result.count_total_cookie);
+			$("#buy_item_count_1").html(result.items[1].count_buy_item);
+			$("#buy_item_count_2").html(result.items[2].count_buy_item);
+			$("#buy_item_count_3").html(result.items[3].count_buy_item);
+			$("#buy_item_count_4").html(result.items[4].count_buy_item);
+			$("#buy_item_count_5").html(result.items[5].count_buy_item);
+			$("#buy_item_count_6").html(result.items[6].count_buy_item);
+			$("#buy_item_count_7").html(result.items[7].count_buy_item);
+			$("#buy_item_count_8").html(result.items[8].count_buy_item);
+
+			//アイテム名表示
+			$("#item_name_1").html(result.items[1].item_name);
+			$("#item_name_2").html(result.items[2].item_name);
+			$("#item_name_3").html(result.items[3].item_name);
+			$("#item_name_4").html(result.items[4].item_name);
+			$("#item_name_5").html(result.items[5].item_name);
+			$("#item_name_6").html(result.items[6].item_name);
+			$("#item_name_7").html(result.items[7].item_name);
+			$("#item_name_8").html(result.items[8].item_name);
+
+
+			//画像表示
+			$('#big_cookie').html('<img src="'+ result.picture_pass_cookie +'">');
+			$('#item_list').html('<img src="'+ result.items[0].picture_pass_item +'">');
+			$('#item_list_2').html('<img src="'+ result.items[0].picture_pass_item +'">');
+			$('#item_icon_1').html('<img src="'+ result.items[1].picture_pass_item +'">');
+			$('#item_icon_2').html('<img src="'+ result.items[2].picture_pass_item +'">');
+			$('#item_icon_3').html('<img src="'+ result.items[3].picture_pass_item +'">');
+			$('#item_icon_4').html('<img src="'+ result.items[4].picture_pass_item +'">');
+			$('#item_icon_5').html('<img src="'+ result.items[5].picture_pass_item +'">');
+			$('#item_icon_6').html('<img src="'+ result.items[6].picture_pass_item +'">');
+			$('#item_icon_7').html('<img src="'+ result.items[7].picture_pass_item +'">');
+			$('#item_icon_8').html('<img src="'+ result.items[8].picture_pass_item +'">');
+			$('#slide_1').html('<img src="'+ result.items[9].picture_pass_item +'">');
+			$('#slide_2').html('<img src="'+ result.items[9].picture_pass_item +'">');
+			$('#panel').html('<img src="'+ result.items[10].picture_pass_item +'">');
+			$('#panel_2').html('<img src="'+ result.items[10].picture_pass_item +'">');
+			$('#panel_3').html('<img src="'+ result.items[10].picture_pass_item +'">');
+			$('#panel_4').html('<img src="'+ result.items[10].picture_pass_item +'">');
+
+			if (status_code == 1) {
+				alert(error_message);
+			}
+
+		};
+		diplay_info();
+
+
+	<!-- auth関連処理 -->
+		function create_auth() {
+			//クッキー取得
+			var cookie_info = String($.cookie("UI"));
+			var login_id = cookie_info.replace(undefined, "");
+
+			//文字列ランダム生成
+			var len = 32;
+			var chr = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+			var chr_len = chr.length;
+			for (var i = 0; i < len; i++) {
+				login_id += chr[Math.floor(Math.random() * chr_len)];
+			}
+
+			//クッキー設定
+			$.cookie('UI', login_id.slice(0, 32), {
+				expires : 30,
+				path : '/'
+			});
+		};
+		create_auth();
+
+	<!-- カウントアップ処理 -->
+		var count = $("#total_cookie_count").text();
+		console.log(count);
+
+		//クリック時処理
+		$("#big_cookie").click(function() {
+			$("#cookie_count").html(++count);
+		});
+
+		//テスト用
+		//function count_up() {
+		//	$("#cookie_count").html(++count);
+		//}
+		//setInterval('count_up()', 1000);
+
+		//クッキー枚数登録
+		function update_cookie_count() {
+			$.ajax({
+				url : '/cookieclicker/countup',
+				type : 'POST',
+				auth : String($.cookie("UI")),
+				data : {
+					'cookie_count' : count
+				}
+			})
+		}
+		setInterval('update_cookie_count()', 10000);
+
+
+
+	<!-- クッキー背景ループ -->
+		$('.slider').slick({
+			arrows : false,
+			autoplay : true,
+			infinite : true,
+			autoplaySpeed : 0,
+			speed : 20000,
+			swipe : false,
+			vertical : true,
+			cssEase : 'linear',
+			pauseOnFocus : false,
+			pauseOnHover : false,
+			pauseOnDotsHover : false,
+
+		});
+
+
+	<!-- スクロールロック -->
+		$(function() {
+			if ($(".no_scroll").length) {
+				$(window).on('wheel', function(e) {
+					e.preventDefault();
+				});
+			} else {
+				$(window).off('wheel');
+			}
+		});
+	});
+	</script>
 <title>ゲーム画面</title>
 </head>
 <body>
@@ -44,8 +257,8 @@
 			style="position: absolute; left: 950px; top: 145px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
 			<p>0</p>
 		</div>
-		<div id="item_name" style="left: 800px; top: 125px;">
-			<p>カーソル</p>
+		<div id="item_name_1" style="left: 800px; top: 125px;">
+			<p></p>
 		</div>
 
 		<div id="item_icon_2"></div>
@@ -53,8 +266,8 @@
 			style="position: absolute; left: 950px; top: 210px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
 			<p>0</p>
 		</div>
-		<div id="item_name" style="left: 800px; top: 190px;">
-			<p>BBA</p>
+		<div id="item_name_2" style="left: 800px; top: 190px;">
+			<p></p>
 		</div>
 
 		<div id="item_icon_3"></div>
@@ -62,8 +275,8 @@
 			style="position: absolute; left: 950px; top: 275px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
 			<p>0</p>
 		</div>
-		<div id="item_name" style="left: 800px; top: 255px;">
-			<p>農場</p>
+		<div id="item_name_3" style="left: 800px; top: 255px;">
+			<p></p>
 		</div>
 
 		<div id="item_icon_4"></div>
@@ -71,8 +284,8 @@
 			style="position: absolute; left: 950px; top: 340px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
 			<p>0</p>
 		</div>
-		<div id="item_name" style="left: 800px; top: 320px;">
-			<p>鉱山</p>
+		<div id="item_name_4" style="left: 800px; top: 320px;">
+			<p></p>
 		</div>
 
 		<div id="item_icon_5"></div>
@@ -80,8 +293,8 @@
 			style="position: absolute; left: 950px; top: 405px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
 			<p>0</p>
 		</div>
-		<div id="item_name" style="left: 800px; top: 385px;">
-			<p>工場</p>
+		<div id="item_name_5" style="left: 800px; top: 385px;">
+			<p></p>
 		</div>
 
 		<div id="item_icon_6"></div>
@@ -89,8 +302,8 @@
 			style="position: absolute; left: 950px; top: 465px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
 			<p>0</p>
 		</div>
-		<div id="item_name" style="left: 800px; top: 445px;">
-			<p>銀行</p>
+		<div id="item_name_6" style="left: 800px; top: 445px;">
+			<p></p>
 		</div>
 
 		<div id="item_icon_7"></div>
@@ -98,8 +311,8 @@
 			style="position: absolute; left: 950px; top: 530px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
 			<p>0</p>
 		</div>
-		<div id="item_name" style="left: 800px; top: 510px;">
-			<p>魔女の塔</p>
+		<div id="item_name_7" style="left: 800px; top: 510px;">
+			<p></p>
 		</div>
 
 		<div id="item_icon_8"></div>
@@ -107,173 +320,10 @@
 			style="position: absolute; left: 950px; top: 595px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
 			<p>0</p>
 		</div>
-		<div id="item_name" style="left: 800px; top: 575px;">
-			<p>宇宙人</p>
+		<div id="item_name_8" style="left: 800px; top: 575px;">
+			<p></p>
 		</div>
 	</div>
-
-
-
-	<!-- 画面表示情報取得処理 -->
-	<script type="text/javascript">
-		function diplay_info(status_code, error_message, result) {
-			//テスト用変数
-			var status_code = 0;
-			var error_message = "えらー！";
-			var result = {
-				"auth" : "user_id",
-				"count_total_cookie" : "1500",
-				"count_buy_item" : {
-					"item_01" : "10",
-					"item_02" : "20",
-					"item_03" : "30",
-					"item_04" : "40",
-					"item_05" : "50",
-					"item_06" : "60",
-					"item_07" : "70",
-					"item_08" : "80"
-				},
-				"picture_pass_cookie" : "/image/perfectCookie.png",
-				"picture_pass_item_01" : "/image/perfectCookie.png",
-				"picture_pass_item_02" : "/image/storeTile.jpg",
-				"picture_pass_item_03" : "/image/item1.png",
-				"picture_pass_item_04" : "/image/item2.png",
-				"picture_pass_item_05" : "/image/item3.png",
-				"picture_pass_item_06" : "/image/item4.png",
-				"picture_pass_item_07" : "/image/item5.png",
-				"picture_pass_item_08" : "/image/item6.png",
-				"picture_pass_item_09" : "/image/item7.png",
-				"picture_pass_item_10" : "/image/item8.png",
-				"picture_pass_item_11" : "/image/cookieShower2.png",
-				"picture_pass_item_12" : "/image/panelVertical1.png"
-			};
-
-			//クッキー枚数、アイテム数表示
-			$("#total_cookie_count").html(result.count_total_cookie);
-			$("#buy_item_count_1").html(result.count_buy_item.item_01);
-			$("#buy_item_count_2").html(result.count_buy_item.item_02);
-			$("#buy_item_count_3").html(result.count_buy_item.item_03);
-			$("#buy_item_count_4").html(result.count_buy_item.item_04);
-			$("#buy_item_count_5").html(result.count_buy_item.item_05);
-			$("#buy_item_count_6").html(result.count_buy_item.item_06);
-			$("#buy_item_count_7").html(result.count_buy_item.item_07);
-			$("#buy_item_count_8").html(result.count_buy_item.item_08);
-
-			//画像表示
-			$('#big_cookie').html('<img src="'+ result.picture_pass_cookie +'">');
-			$('#item_list').html('<img src="'+ result.picture_pass_item_02 +'">');
-			$('#item_list_2').html('<img src="'+ result.picture_pass_item_02 +'">');
-			$('#item_icon_1').html('<img src="'+ result.picture_pass_item_03 +'">');
-			$('#item_icon_2').html('<img src="'+ result.picture_pass_item_04 +'">');
-			$('#item_icon_3').html('<img src="'+ result.picture_pass_item_05 +'">');
-			$('#item_icon_4').html('<img src="'+ result.picture_pass_item_06 +'">');
-			$('#item_icon_5').html('<img src="'+ result.picture_pass_item_07 +'">');
-			$('#item_icon_6').html('<img src="'+ result.picture_pass_item_08 +'">');
-			$('#item_icon_7').html('<img src="'+ result.picture_pass_item_09 +'">');
-			$('#item_icon_8').html('<img src="'+ result.picture_pass_item_10 +'">');
-			$('#slide_1').html('<img src="'+ result.picture_pass_item_11 +'">');
-			$('#slide_2').html('<img src="'+ result.picture_pass_item_11 +'">');
-			$('#panel').html('<img src="'+ result.picture_pass_item_12 +'">');
-			$('#panel_2').html('<img src="'+ result.picture_pass_item_12 +'">');
-			$('#panel_3').html('<img src="'+ result.picture_pass_item_12 +'">');
-			$('#panel_4').html('<img src="'+ result.picture_pass_item_12 +'">');
-
-			if (status_code == 1) {
-				alert(error_message);
-			}
-
-		};
-		diplay_info();
-	</script>
-
-	<!-- auth関連処理 -->
-	<script type="text/javascript">
-		function create_auth() {
-			//クッキー取得
-			var cookie_info = String($.cookie("UI"));
-			var login_id = cookie_info.replace(undefined, "");
-
-			//文字列ランダム生成
-			var len = 32;
-			var chr = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-			var chr_len = chr.length;
-			for (var i = 0; i < len; i++) {
-				login_id += chr[Math.floor(Math.random() * chr_len)];
-			}
-
-			//クッキー設定
-			$.cookie('UI', login_id.slice(0, 32), {
-				expires : 30,
-				path : '/'
-			});
-		};
-		create_auth();
-	</script>
-
-	<!-- クッキー数表示/登録処理 -->
-	<script type="text/javascript">
-		var count = $("#total_cookie_count").text();
-		console.log(count);
-
-		//クッキークリック時処理
-		$("#big_cookie").click(function() {
-			$("#cookie_count").html(++count);
-		});
-
-		//カウントアップ処理
-		function count_up() {
-			$("#cookie_count").html(++count);
-		}
-		setInterval('count_up()', 1000);
-
-		//クッキー枚数登録
-		function update_cookie_count() {
-			$.ajax({
-				url : '/cookieclicker/countup',
-				type : 'POST',
-				auth : String($.cookie("UI")),
-				data : {
-					'cookie_count' : count
-				}
-			})
-		}
-		setInterval('update_cookie_count()', 10000);
-	</script>
-
-
-
-	<!-- クッキー背景ループ -->
-	<script type="text/javascript">
-		$('.slider').slick({
-			arrows : false,
-			autoplay : true,
-			infinite : true,
-			autoplaySpeed : 0,
-			speed : 20000,
-			swipe : false,
-			vertical : true,
-			cssEase : 'linear',
-			pauseOnFocus : false,
-			pauseOnHover : false,
-			pauseOnDotsHover : false,
-
-		});
-	</script>
-
-	<!-- スクロールロック -->
-	<script type="text/javascript">
-		$(function() {
-			if ($(".no_scroll").length) {
-				$(window).on('wheel', function(e) {
-					e.preventDefault();
-				});
-			} else {
-				$(window).off('wheel');
-			}
-		});
-	</script>
-
 </body>
 </html>
 
