@@ -190,6 +190,99 @@
 		}
 		setInterval('update_cookie_count()', 10000);
 
+	<!-- アイテム購入処理 -->
+	$("#item_icon_1").click(function() {
+		$.ajax({
+			url : '/cookieclicker/buy',
+			type : 'POST',
+			auth : String($.cookie("UI")),
+			data : {
+				'item_id' : 'aaa'
+			}
+		})
+	});
+
+
+	$("#item_icon_2").click(function() {
+		$.ajax({
+			url : '/cookieclicker/buy',
+			type : 'POST',
+			auth : String($.cookie("UI")),
+			data : {
+				'item_id' : 'bbb'
+			}
+		})
+	});
+
+
+	$("#item_icon_3").click(function() {
+		$.ajax({
+			url : '/cookieclicker/buy',
+			type : 'POST',
+			auth : String($.cookie("UI")),
+			data : {
+				'item_id' : 'ccc'
+			}
+		})
+	});
+
+
+	$("#item_icon_4").click(function() {
+		$.ajax({
+			url : '/cookieclicker/buy',
+			type : 'POST',
+			auth : String($.cookie("UI")),
+			data : {
+				'item_id' : 'ddd'
+			}
+		})
+	});
+
+	$("#item_icon_5").click(function() {
+		$.ajax({
+			url : '/cookieclicker/buy',
+			type : 'POST',
+			auth : String($.cookie("UI")),
+			data : {
+				'item_id' : 'eee'
+			}
+		})
+	});
+
+
+	$("#item_icon_6").click(function() {
+		$.ajax({
+			url : '/cookieclicker/buy',
+			type : 'POST',
+			auth : String($.cookie("UI")),
+			data : {
+				'item_id' : 'fff'
+			}
+		})
+	});
+
+	$("#item_icon_7").click(function() {
+		$.ajax({
+			url : '/cookieclicker/buy',
+			type : 'POST',
+			auth : String($.cookie("UI")),
+			data : {
+				'item_id' : 'ggg'
+			}
+		})
+	});
+
+	$("#item_icon_8").click(function() {
+		$.ajax({
+			url : '/cookieclicker/buy',
+			type : 'POST',
+			auth : String($.cookie("UI")),
+			data : {
+				'item_id' : 'hhh'
+			}
+		})
+	});
+
 
 
 	<!-- クッキー背景ループ -->
@@ -260,6 +353,10 @@
 		<div id="item_name_1" style="left: 800px; top: 125px;">
 			<p></p>
 		</div>
+		<div id="item_flg_1"
+			style="position: absolute; left: 900px; top: 135px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
+			<p>ON</p>
+		</div>
 
 		<div id="item_icon_2"></div>
 		<div id="buy_item_count_2"
@@ -269,6 +366,11 @@
 		<div id="item_name_2" style="left: 800px; top: 190px;">
 			<p></p>
 		</div>
+		<div id="item_flg_2"
+			style="position: absolute; left: 900px; top: 195px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
+			<p>ON</p>
+		</div>
+
 
 		<div id="item_icon_3"></div>
 		<div id="buy_item_count_3"
@@ -278,6 +380,11 @@
 		<div id="item_name_3" style="left: 800px; top: 255px;">
 			<p></p>
 		</div>
+		<div id="item_flg_3"
+			style="position: absolute; left: 900px; top: 255px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
+			<p>ON</p>
+		</div>
+
 
 		<div id="item_icon_4"></div>
 		<div id="buy_item_count_4"
@@ -287,6 +394,11 @@
 		<div id="item_name_4" style="left: 800px; top: 320px;">
 			<p></p>
 		</div>
+		<div id="item_flg_4"
+			style="position: absolute; left: 900px; top: 320px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
+			<p>ON</p>
+		</div>
+
 
 		<div id="item_icon_5"></div>
 		<div id="buy_item_count_5"
@@ -296,6 +408,11 @@
 		<div id="item_name_5" style="left: 800px; top: 385px;">
 			<p></p>
 		</div>
+		<div id="item_flg_5"
+			style="position: absolute; left: 900px; top: 385px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
+			<p>ON</p>
+		</div>
+
 
 		<div id="item_icon_6"></div>
 		<div id="buy_item_count_6"
@@ -305,6 +422,11 @@
 		<div id="item_name_6" style="left: 800px; top: 445px;">
 			<p></p>
 		</div>
+		<div id="item_flg_6"
+			style="position: absolute; left: 900px; top: 450px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
+			<p>ON</p>
+		</div>
+
 
 		<div id="item_icon_7"></div>
 		<div id="buy_item_count_7"
@@ -314,6 +436,11 @@
 		<div id="item_name_7" style="left: 800px; top: 510px;">
 			<p></p>
 		</div>
+		<div id="item_flg_7"
+			style="position: absolute; left: 900px; top: 515px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
+			<p>ON</p>
+		</div>
+
 
 		<div id="item_icon_8"></div>
 		<div id="buy_item_count_8"
@@ -323,6 +450,11 @@
 		<div id="item_name_8" style="left: 800px; top: 575px;">
 			<p></p>
 		</div>
+		<div id="item_flg_8"
+			style="position: absolute; left: 900px; top: 575px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
+			<p>ON</p>
+		</div>
+
 	</div>
 </body>
 </html>
