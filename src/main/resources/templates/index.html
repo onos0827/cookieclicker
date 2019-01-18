@@ -8,394 +8,7 @@
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
-<script>
-	$(function(){
-		<!-- 画面表示情報取得処理 -->
-		function diplay_info(status_code, error_message, result) {
-			//テスト用変数
-			var status_code = 0;
-			var error_message = "えらー！";
-			var result = {
-				"auth" : "user_id",
-				"count_total_cookie" : "1500",
-				"picture_pass_cookie" : "/image/perfectCookie.png",
-				"items":[{
-					"picture_pass_item" : "/image/storeTile.jpg",
-					"item_name" : "storeTile",
-					"item_cost" : "",
-					"count_buy_item" : ""
-				},
-				{
-					"picture_pass_item" : "/image/item1.png",
-					"item_name" : "カーソル",
-					"item_cost" : "2000",
-					"count_buy_item" : "20"
-				},
-				{
-					"picture_pass_item" : "/image/item2.png",
-					"item_name" : "BBA",
-					"item_cost" : "3000",
-					"count_buy_item" : "30"
-				},
-				{
-					"picture_pass_item" : "/image/item3.png",
-					"item_name" : "農場",
-					"item_cost" : "4000",
-					"count_buy_item" : "40"
-				},
-				{
-					"picture_pass_item" : "/image/item4.png",
-					"item_name" : "鉱山",
-					"item_cost" : "5000",
-					"count_buy_item" : "50"
-				},
-				{
-					"picture_pass_item" : "/image/item5.png",
-					"item_name" : "工場",
-					"item_cost" : "6000",
-					"count_buy_item" : "60"
-				},
-				{
-					"picture_pass_item" : "/image/item6.png",
-					"item_name" : "銀行",
-					"item_cost" : "7000",
-					"count_buy_item" : "70"
-				},
-				{
-					"picture_pass_item" : "/image/item7.png",
-					"item_name" : "魔女の塔",
-					"item_cost" : "8000",
-					"count_buy_item" : "80"
-				},
-				{
-					"picture_pass_item" : "/image/item8.png",
-					"item_name" : "宇宙人",
-					"item_cost" : "9000",
-					"count_buy_item" : "90"
-				},
-				{
-					"picture_pass_item" : "/image/cookieShower2.png",
-					"item_name" : "cookieShower",
-					"item_cost" : "",
-					"count_buy_item" : ""
-				},
-				{
-					"picture_pass_item" : "/image/panelVertical1.png",
-					"item_name" : "panel",
-					"item_cost" : "",
-					"count_buy_item" : ""
-				},]
-			};
-
-	        console.log(result);
-	        console.log(result.items[1].item_name);
-
-			//クッキー枚数、アイテム数表示
-			$("#total_cookie_count").html(result.count_total_cookie);
-			$("#buy_item_count_1").html(result.items[1].count_buy_item);
-			$("#buy_item_count_2").html(result.items[2].count_buy_item);
-			$("#buy_item_count_3").html(result.items[3].count_buy_item);
-			$("#buy_item_count_4").html(result.items[4].count_buy_item);
-			$("#buy_item_count_5").html(result.items[5].count_buy_item);
-			$("#buy_item_count_6").html(result.items[6].count_buy_item);
-			$("#buy_item_count_7").html(result.items[7].count_buy_item);
-			$("#buy_item_count_8").html(result.items[8].count_buy_item);
-
-			//アイテム名表示
-			$("#item_name_1").html(result.items[1].item_name);
-			$("#item_name_2").html(result.items[2].item_name);
-			$("#item_name_3").html(result.items[3].item_name);
-			$("#item_name_4").html(result.items[4].item_name);
-			$("#item_name_5").html(result.items[5].item_name);
-			$("#item_name_6").html(result.items[6].item_name);
-			$("#item_name_7").html(result.items[7].item_name);
-			$("#item_name_8").html(result.items[8].item_name);
-
-
-			//画像表示
-			$('#big_cookie').html('<img src="'+ result.picture_pass_cookie +'">');
-			$('#item_list').html('<img src="'+ result.items[0].picture_pass_item +'">');
-			$('#item_list_2').html('<img src="'+ result.items[0].picture_pass_item +'">');
-			$('#item_icon_1').html('<img src="'+ result.items[1].picture_pass_item +'">');
-			$('#item_icon_2').html('<img src="'+ result.items[2].picture_pass_item +'">');
-			$('#item_icon_3').html('<img src="'+ result.items[3].picture_pass_item +'">');
-			$('#item_icon_4').html('<img src="'+ result.items[4].picture_pass_item +'">');
-			$('#item_icon_5').html('<img src="'+ result.items[5].picture_pass_item +'">');
-			$('#item_icon_6').html('<img src="'+ result.items[6].picture_pass_item +'">');
-			$('#item_icon_7').html('<img src="'+ result.items[7].picture_pass_item +'">');
-			$('#item_icon_8').html('<img src="'+ result.items[8].picture_pass_item +'">');
-			$('#slide_1').html('<img src="'+ result.items[9].picture_pass_item +'">');
-			$('#slide_2').html('<img src="'+ result.items[9].picture_pass_item +'">');
-			$('#panel').html('<img src="'+ result.items[10].picture_pass_item +'">');
-			$('#panel_2').html('<img src="'+ result.items[10].picture_pass_item +'">');
-			$('#panel_3').html('<img src="'+ result.items[10].picture_pass_item +'">');
-			$('#panel_4').html('<img src="'+ result.items[10].picture_pass_item +'">');
-
-			if (status_code == 1) {
-				alert(error_message);
-			}
-
-		};
-		diplay_info();
-
-
-	<!-- auth関連処理 -->
-		function create_auth() {
-			//クッキー取得
-			var cookie_info = String($.cookie("UI"));
-			var login_id = cookie_info.replace(undefined, "");
-
-			//文字列ランダム生成
-			var len = 32;
-			var chr = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-			var chr_len = chr.length;
-			for (var i = 0; i < len; i++) {
-				login_id += chr[Math.floor(Math.random() * chr_len)];
-			}
-
-			//クッキー設定
-			$.cookie('UI', login_id.slice(0, 32), {
-				expires : 30,
-				path : '/'
-			});
-		};
-		create_auth();
-
-	<!-- カウントアップ処理 -->
-		var count = $("#total_cookie_count").text();
-		console.log(count);
-
-		//クリック時処理
-		$("#big_cookie").click(function() {
-			$("#cookie_count").html(++count);
-		});
-
-		//テスト用
-		//function count_up() {
-		//	$("#cookie_count").html(++count);
-		//}
-		//setInterval('count_up()', 1000);
-
-		//クッキー枚数登録
-		function update_cookie_count() {
-			$.ajax({
-				url : '/cookieclicker/countup',
-				type : 'POST',
-				auth : String($.cookie("UI")),
-				data : {
-					'cookie_count' : count
-				}
-			})
-		}
-		setInterval('update_cookie_count()', 10000);
-
-	<!-- アイテム購入処理 -->
-	$("#item_icon_1").click(function() {
-		$.ajax({
-			url : '/cookieclicker/buy',
-			type : 'POST',
-			auth : String($.cookie("UI")),
-			data : {
-				'item_id' : 'aaa'
-			}
-		})
-	});
-
-
-	$("#item_icon_2").click(function() {
-		$.ajax({
-			url : '/cookieclicker/buy',
-			type : 'POST',
-			auth : String($.cookie("UI")),
-			data : {
-				'item_id' : 'bbb'
-			}
-		})
-	});
-
-
-	$("#item_icon_3").click(function() {
-		$.ajax({
-			url : '/cookieclicker/buy',
-			type : 'POST',
-			auth : String($.cookie("UI")),
-			data : {
-				'item_id' : 'ccc'
-			}
-		})
-	});
-
-
-	$("#item_icon_4").click(function() {
-		$.ajax({
-			url : '/cookieclicker/buy',
-			type : 'POST',
-			auth : String($.cookie("UI")),
-			data : {
-				'item_id' : 'ddd'
-			}
-		})
-	});
-
-	$("#item_icon_5").click(function() {
-		$.ajax({
-			url : '/cookieclicker/buy',
-			type : 'POST',
-			auth : String($.cookie("UI")),
-			data : {
-				'item_id' : 'eee'
-			}
-		})
-	});
-
-
-	$("#item_icon_6").click(function() {
-		$.ajax({
-			url : '/cookieclicker/buy',
-			type : 'POST',
-			auth : String($.cookie("UI")),
-			data : {
-				'item_id' : 'fff'
-			}
-		})
-	});
-
-	$("#item_icon_7").click(function() {
-		$.ajax({
-			url : '/cookieclicker/buy',
-			type : 'POST',
-			auth : String($.cookie("UI")),
-			data : {
-				'item_id' : 'ggg'
-			}
-		})
-	});
-
-	$("#item_icon_8").click(function() {
-		$.ajax({
-			url : '/cookieclicker/buy',
-			type : 'POST',
-			auth : String($.cookie("UI")),
-			data : {
-				'item_id' : 'hhh'
-			}
-		})
-	});
-
-	<!-- アイテム有効化 -->
-	$("#item_flg_1").click(function() {
-	var flg = $("#item_flg_1").text();
-	console.log(flg);
-	if(flg == 'ON'){
-		$("#item_flg_1").html('OFF');
-	}else{
-		$("#item_flg_1").html('ON');
-	}
-	});
-
-	$("#item_flg_2").click(function() {
-		var flg = $("#item_flg_2").text();
-		console.log(flg);
-		if(flg == 'ON'){
-			$("#item_flg_2").html('OFF');
-		}else{
-			$("#item_flg_2").html('ON');
-		}
-		});
-
-	$("#item_flg_3").click(function() {
-		var flg = $("#item_flg_3").text();
-		console.log(flg);
-		if(flg == 'ON'){
-			$("#item_flg_3").html('OFF');
-		}else{
-			$("#item_flg_3").html('ON');
-		}
-		});
-
-	$("#item_flg_4").click(function() {
-		var flg = $("#item_flg_4").text();
-		console.log(flg);
-		if(flg == 'ON'){
-			$("#item_flg_4").html('OFF');
-		}else{
-			$("#item_flg_4").html('ON');
-		}
-		});
-
-	$("#item_flg_5").click(function() {
-		var flg = $("#item_flg_5").text();
-		console.log(flg);
-		if(flg == 'ON'){
-			$("#item_flg_5").html('OFF');
-		}else{
-			$("#item_flg_5").html('ON');
-		}
-		});
-
-	$("#item_flg_6").click(function() {
-		var flg = $("#item_flg_6").text();
-		console.log(flg);
-		if(flg == 'ON'){
-			$("#item_flg_6").html('OFF');
-		}else{
-			$("#item_flg_6").html('ON');
-		}
-		});
-
-	$("#item_flg_7").click(function() {
-		var flg = $("#item_flg_7").text();
-		console.log(flg);
-		if(flg == 'ON'){
-			$("#item_flg_7").html('OFF');
-		}else{
-			$("#item_flg_7").html('ON');
-		}
-		});
-
-	$("#item_flg_8").click(function() {
-		var flg = $("#item_flg_8").text();
-		console.log(flg);
-		if(flg == 'ON'){
-			$("#item_flg_8").html('OFF');
-		}else{
-			$("#item_flg_8").html('ON');
-		}
-		});
-
-
-
-
-	<!-- クッキー背景ループ -->
-		$('.slider').slick({
-			arrows : false,
-			autoplay : true,
-			infinite : true,
-			autoplaySpeed : 0,
-			speed : 20000,
-			swipe : false,
-			vertical : true,
-			cssEase : 'linear',
-			pauseOnFocus : false,
-			pauseOnHover : false,
-			pauseOnDotsHover : false,
-
-		});
-
-
-	<!-- スクロールロック -->
-		$(function() {
-			if ($(".no_scroll").length) {
-				$(window).on('wheel', function(e) {
-					e.preventDefault();
-				});
-			} else {
-				$(window).off('wheel');
-			}
-		});
-	});
-	</script>
+<script type="text/javascript" src="js/clicker.js"></script>
 <title>ゲーム画面</title>
 </head>
 <body>
@@ -403,8 +16,8 @@
 	<div class="no_scroll">
 		<!-- スライド -->
 		<ul class="slider">
-			<div id="slide_1"></div>
-			<div id="slide_2"></div>
+			<li id="slide_1"></li>
+			<li id="slide_2"></li>
 		</ul>
 
 		<!-- 画面左側の表示部分 -->
@@ -427,112 +40,112 @@
 		<div id="item_list"></div>
 		<div id="item_list_2"></div>
 
-		<div id="item_icon_1"></div>
+		<div class="item_icon" id="item_icon_1"></div>
 		<div id="buy_item_count_1"
 			style="position: absolute; left: 950px; top: 145px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
-			<p>0</p>
+			<p></p>
 		</div>
 		<div id="item_name_1" style="left: 800px; top: 125px;">
 			<p></p>
 		</div>
-		<div id="item_flg_1"
+		<div class="item_flg"  id="item_flg_1"
 			style="position: absolute; left: 900px; top: 135px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
 			<p>ON</p>
 		</div>
 
-		<div id="item_icon_2"></div>
+		<div class="item_icon"  id="item_icon_2"></div>
 		<div id="buy_item_count_2"
 			style="position: absolute; left: 950px; top: 210px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
-			<p>0</p>
+			<p></p>
 		</div>
 		<div id="item_name_2" style="left: 800px; top: 190px;">
 			<p></p>
 		</div>
-		<div id="item_flg_2"
+		<div class="item_flg" id="item_flg_2"
 			style="position: absolute; left: 900px; top: 195px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
 			<p>ON</p>
 		</div>
 
 
-		<div id="item_icon_3"></div>
+		<div class="item_icon"  id="item_icon_3"></div>
 		<div id="buy_item_count_3"
 			style="position: absolute; left: 950px; top: 275px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
-			<p>0</p>
+			<p></p>
 		</div>
 		<div id="item_name_3" style="left: 800px; top: 255px;">
 			<p></p>
 		</div>
-		<div id="item_flg_3"
+		<div class="item_flg" id="item_flg_3"
 			style="position: absolute; left: 900px; top: 255px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
 			<p>ON</p>
 		</div>
 
 
-		<div id="item_icon_4"></div>
+		<div class="item_icon"  id="item_icon_4"></div>
 		<div id="buy_item_count_4"
 			style="position: absolute; left: 950px; top: 340px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
-			<p>0</p>
+			<p></p>
 		</div>
 		<div id="item_name_4" style="left: 800px; top: 320px;">
 			<p></p>
 		</div>
-		<div id="item_flg_4"
+		<div class="item_flg" id="item_flg_4"
 			style="position: absolute; left: 900px; top: 320px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
 			<p>ON</p>
 		</div>
 
 
-		<div id="item_icon_5"></div>
+		<div class="item_icon"  id="item_icon_5"></div>
 		<div id="buy_item_count_5"
 			style="position: absolute; left: 950px; top: 405px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
-			<p>0</p>
+			<p></p>
 		</div>
 		<div id="item_name_5" style="left: 800px; top: 385px;">
 			<p></p>
 		</div>
-		<div id="item_flg_5"
+		<div class="item_flg" id="item_flg_5"
 			style="position: absolute; left: 900px; top: 385px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
 			<p>ON</p>
 		</div>
 
 
-		<div id="item_icon_6"></div>
+		<div class="item_icon"  id="item_icon_6"></div>
 		<div id="buy_item_count_6"
 			style="position: absolute; left: 950px; top: 465px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
-			<p>0</p>
+			<p></p>
 		</div>
 		<div id="item_name_6" style="left: 800px; top: 445px;">
 			<p></p>
 		</div>
-		<div id="item_flg_6"
+		<div class="item_flg" id="item_flg_6"
 			style="position: absolute; left: 900px; top: 450px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
 			<p>ON</p>
 		</div>
 
 
-		<div id="item_icon_7"></div>
+		<div class="item_icon"  id="item_icon_7"></div>
 		<div id="buy_item_count_7"
 			style="position: absolute; left: 950px; top: 530px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
-			<p>0</p>
+			<p></p>
 		</div>
 		<div id="item_name_7" style="left: 800px; top: 510px;">
 			<p></p>
 		</div>
-		<div id="item_flg_7"
+		<div class="item_flg" id="item_flg_7"
 			style="position: absolute; left: 900px; top: 515px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
 			<p>ON</p>
 		</div>
 
 
-		<div id="item_icon_8"></div>
+		<div class="item_icon"  id="item_icon_8"></div>
 		<div id="buy_item_count_8"
 			style="position: absolute; left: 950px; top: 595px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; pointer-events: none;">
-			<p>0</p>
+			<p></p>
 		</div>
 		<div id="item_name_8" style="left: 800px; top: 575px;">
 			<p></p>
 		</div>
-		<div id="item_flg_8"
+		<div class="item_flg" id="item_flg_8"
 			style="position: absolute; left: 900px; top: 575px; -webkit-text-stroke: 1px #000; font-size: 170%; font-weight: bolder; cursor:pointer;">
 			<p>ON</p>
 		</div>
