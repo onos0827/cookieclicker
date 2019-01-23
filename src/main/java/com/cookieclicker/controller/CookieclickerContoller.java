@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CookieclickerContoller {
 	@GetMapping("/cookieclicker")
 	public String screenDisplay() {
-		return "index";
+		return "index.html";
 	}
 
 	@RequestMapping("/cookieclicker/display")
@@ -32,12 +32,25 @@ public class CookieclickerContoller {
 
 	@RequestMapping("/cookieclicker/countup")
 	@ResponseBody
-	public Long updateCookieCount(@RequestHeader("auth") String auth, @RequestBody Long cokkiecount) {
+	public String updateCookieCount(@RequestHeader("auth") String auth, @RequestBody String cokkiecount) {
 
 		//テスト用
-		Long ck = cokkiecount;
-
+		String ck = cokkiecount;
 
 		return ck;
+	}
+
+
+	@RequestMapping("/cookieclicker/enable")
+	@ResponseBody
+	public int itemFlgUpdate(@RequestHeader("auth") String auth, @RequestBody String request) {
+
+
+		//テスト用
+		int num = 100;
+
+
+
+		return num;
 	}
 }

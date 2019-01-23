@@ -54,70 +54,32 @@ html::-webkit-scrollbar
 
 
 
-#item_name_1 {
+.item_name {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+    //color: #f00;
+	font-size: 170%;
+	font-weight: bolder;
+	pointer-events: none;
+}
+
+
+.item_flg {
+    -webkit-text-stroke: 1px #000;
+    position:absolute;
+	font-size: 170%;
+	font-weight: bolder;
+	cursor:pointer;
+}
+
+
+.buy_count{
     -webkit-text-stroke: 1px #000;
     position:absolute;
 	font-size: 170%;
 	font-weight: bolder;
 	pointer-events: none;
 }
-
-#item_name_2 {
-    -webkit-text-stroke: 1px #000;
-    position:absolute;
-	font-size: 170%;
-	font-weight: bolder;
-	pointer-events: none;
-}
-
-#item_name_3 {
-    -webkit-text-stroke: 1px #000;
-    position:absolute;
-	font-size: 170%;
-	font-weight: bolder;
-	pointer-events: none;
-}
-
-#item_name_4 {
-    -webkit-text-stroke: 1px #000;
-    position:absolute;
-	font-size: 170%;
-	font-weight: bolder;
-	pointer-events: none;
-}
-
-#item_name_5 {
-    -webkit-text-stroke: 1px #000;
-    position:absolute;
-	font-size: 170%;
-	font-weight: bolder;
-	pointer-events: none;
-}
-
-#item_name_6 {
-    -webkit-text-stroke: 1px #000;
-    position:absolute;
-	font-size: 170%;
-	font-weight: bolder;
-	pointer-events: none;
-}
-
-#item_name_7 {
-    -webkit-text-stroke: 1px #000;
-    position:absolute;
-	font-size: 170%;
-	font-weight: bolder;
-	pointer-events: none;
-}
-
-#item_name_8 {
-    -webkit-text-stroke: 1px #000;
-    position:absolute;
-	font-size: 170%;
-	font-weight: bolder;
-	pointer-events: none;
-}
-
 
 
 
@@ -151,84 +113,10 @@ html::-webkit-scrollbar
 }
 
 
-#item_icon_1
+.item_icon
 {
 	position:absolute;
-	left:700px;
-	top:128px;
 	z-index: 1;
 	cursor:pointer;
 
 }
-
-
-
-#item_icon_2
-{
-	position:absolute;
-	left:700px;
-	top:192px;
-	z-index: 1;
-	cursor:pointer;
-
-}
-
-#item_icon_3
-{
-	position:absolute;
-	left:700px;
-	top:256px;
-	z-index: 1;
-	cursor:pointer;
-
-}
-
-#item_icon_4
-{
-	position:absolute;
-	left:700px;
-	top:320px;
-	z-index: 1;
-	cursor:pointer;
-}
-
-#item_icon_5
-{
-	position:absolute;
-	left:700px;
-	top:384px;
-	z-index: 1;
-	cursor:pointer;
-
-}
-
-#item_icon_6
-{
-	position:absolute;
-	left:700px;
-	top:448px;
-	z-index: 1;
-	cursor:pointer;
-
-}
-
-#item_icon_7
-{
-	position:absolute;
-	left:700px;
-	top:512px;
-	z-index: 1;
-	cursor:pointer;
-
-}
-
-#item_icon_8
-{
-	position:absolute;
-	left:700px;
-	top:576px;
-	z-index: 1;
-	cursor:pointer;
-
-}
-
