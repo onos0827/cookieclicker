@@ -135,6 +135,12 @@ $(function(){
 		//クッキー枚数表示
 		$("#total_cookie_count").append(result.count_total_cookie);
 
+		//アイテム効果によるクッキー増加量の合計だす
+		var total_item_cokkie_cnt
+
+		//アイテム機能有効
+		interval_item(total_item_cokkie_cnt);
+
 	}).fail(function(status_code, error_message){
 		alert(error_message);
 	});
