@@ -21,6 +21,7 @@ $(function(){
 		var result = {
 				"auth": "user_id",
 				"count_total_cookie": "1500",
+				"increase_cookie_onflg":"3500",
 				"items": [
 				{
 					"picture_pass_item": "/image/item1.png",
@@ -135,11 +136,9 @@ $(function(){
 		//クッキー枚数表示
 		$("#total_cookie_count").append(result.count_total_cookie);
 
-		//アイテム効果によるクッキー増加量の合計だす
-		var total_item_cokkie_cnt
 
 		//アイテム機能有効
-		interval_item(total_item_cokkie_cnt);
+		interval_item(Number(result.increase_cookie_onflg));
 
 	}).fail(function(status_code, error_message){
 		alert(error_message);
