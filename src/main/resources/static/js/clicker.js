@@ -12,99 +12,16 @@ $(function(){
 			})
 	}
 
-	diplay_info().done(function(result){
+	diplay_info().done(function(responseJson){
+
+
+		var result = JSON.parse(responseJson);
 		console.log(result);
-
-		//テスト用変数
-		var status_code = 0;
-		var error_message = "えらー！";
-		var result = {
-				"auth": "user_id",
-				"count_total_cookie": "1500",
-				"increase_cookie_onflg":"3500",
-				"items": [
-				{
-					"picture_pass_item": "/image/item1.png",
-					"picture_id": "item_icon_1",
-					"item_id": "item1",
-					"item_name": "SSS",
-					"item_cost": "2000",
-					"item_flg": "OFF",
-					"count_buy_item": "20"
-				},
-				{
-					"picture_pass_item": "/image/item2.png",
-					"picture_id": "item_icon_2",
-					"item_id": "item2",
-					"item_name": "BBA",
-					"item_cost": "3000",
-					"item_flg": "OFF",
-					"count_buy_item": "30"
-				},
-				{
-					"picture_pass_item": "/image/item3.png",
-					"picture_id": "item_icon_3",
-					"item_id": "item3",
-					"item_name": "農場",
-					"item_cost": "4000",
-					"item_flg": "OFF",
-					"count_buy_item": "40"
-				},
-				{
-					"picture_pass_item": "/image/item4.png",
-					"picture_id": "item_icon_4",
-					"item_id": "item4",
-					"item_name": "鉱山",
-					"item_cost": "5000",
-					"item_flg": "OFF",
-					"count_buy_item": "50"
-				},
-				{
-					"picture_pass_item": "/image/item5.png",
-					"picture_id": "item_icon_5",
-					"item_id": "item5",
-					"item_name": "工場",
-					"item_cost": "6000",
-					"item_flg": "OFF",
-					"count_buy_item": "60"
-				},
-				{
-					"picture_pass_item": "/image/item6.png",
-					"picture_id": "item_icon_6",
-					"item_id": "item6",
-					"item_name": "銀行",
-					"item_cost": "7000",
-					"item_flg": "OFF",
-					"count_buy_item": "70"
-				},
-				{
-					"picture_pass_item": "/image/item7.png",
-					"picture_id": "item_icon_7",
-					"item_id": "item7",
-					"item_name": "魔女の塔",
-					"item_cost": "8000",
-					"item_flg": "OFF",
-					"count_buy_item": "80"
-				},
-				{
-					"picture_pass_item": "/image/item8.png",
-					"picture_id": "item_icon_8",
-					"item_id": "item8",
-					"item_name": "宇宙人",
-					"item_cost": "9000",
-					"item_flg": "OFF",
-					"count_buy_item": "90"
-				}
-				]
-		};
-
-/*	  	left:700px;
-	top:128px; */
-
 
 		//アイテム部分表示
 		var top_val = 75
 		var item_icon_top = 64
+		var increase_cookie_onflg = 0
 		$.each(result.items,function(i){
 			top_val = top_val+65;
 			item_icon_top = item_icon_top+64;
@@ -123,8 +40,15 @@ $(function(){
 
 
 			var item_flg = $('<div class="item_flg" id="item_flg_'+result.items[i].item_id+'">');
-			item_flg.append(result.items[i].item_flg);
+			item_flg.append(result.items[i].enabled_flg);
 			item_flg.css({'left': '900px','top':top_val});
+
+			if(result.items[i].enabled_flg == "ON"){
+				increase_cookie_onflg = increase_cookie_onflg+Number(result.items[i].increase_cookie);
+				console.log(increase_cookie_onflg);
+			}else{
+				increase_cookie_onflg = increase_cookie_onflg+0;
+			}
 
 			$('body').append(icon);
 			$('body').append(buy_count);
@@ -138,7 +62,7 @@ $(function(){
 
 
 		//アイテム機能有効
-		interval_item(Number(result.increase_cookie_onflg));
+		interval_item(Number(increase_cookie_onflg));
 
 	}).fail(function(status_code, error_message){
 		alert(error_message);
@@ -189,10 +113,12 @@ $(function(){
 		$.ajax({
 			url : '/cookieclicker/countup',
 			type : 'POST',
-			headers: {"auth" : $.cookie("UI")},
-			data:count,
 	        contentType: 'application/json',
-	        dataType: "json"
+	        dataType: "json",
+			headers: {"auth" : $.cookie("UI")},
+			data : {
+				'cookie_count' : count
+			}
 		})
 	},10000
 );
