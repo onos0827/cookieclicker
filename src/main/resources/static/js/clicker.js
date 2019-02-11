@@ -25,7 +25,7 @@ $(function(){
 		$.each(result.items,function(i){
 			top_val = top_val+65;
 			item_icon_top = item_icon_top+64;
-			var icon = $('<div class="item_icon" id="'+result.items[i].picture_id+'">');
+			var icon = $('<div class="item_icon" id="picture_'+result.items[i].item_id+'">');
 			icon.append('<img src="'+ result.items[i].picture_pass_item +'">');
 			icon.css({'left': '700px','top':item_icon_top});
 
@@ -39,14 +39,19 @@ $(function(){
 			item_name.css({'left': '800px','top':top_val});
 
 
+			var item_cost = $('<div class="item_cost" id="item_cost_'+result.items[i].item_id+'">');
+			item_cost.append(result.items[i].item_cost);
+
+
 			var item_flg = $('<div class="item_flg" id="item_flg_'+result.items[i].item_id+'">');
 			item_flg.append(result.items[i].enabled_flg);
 			item_flg.css({'left': '900px','top':top_val});
-
-			if(result.items[i].enabled_flg == "ON"){
+			if(result.items[i].enabled_flg == 1){
+				item_flg.text("ON");
 				increase_cookie_onflg = increase_cookie_onflg+Number(result.items[i].increase_cookie);
 				console.log(increase_cookie_onflg);
 			}else{
+				item_flg.text("OFF");
 				increase_cookie_onflg = increase_cookie_onflg+0;
 			}
 
@@ -54,11 +59,15 @@ $(function(){
 			$('body').append(buy_count);
 			$('body').append(item_name);
 			$('body').append(item_flg);
+			$('body').append(item_cost);
+			$('.item_cost').hide();
 
 		});
 
 		//クッキー枚数表示
-		$("#total_cookie_count").append(result.count_total_cookie);
+		$("#cookie_count").append(result.count_total_cookie);
+		$("#total_cookie_count").append(result.total_production);
+		$('#total_cookie_count').hide();
 
 
 		//アイテム機能有効
@@ -97,19 +106,24 @@ $(function(){
 	/**
 	 * カウントアップ処理
 	 */
-	var count = Number($("#total_cookie_count").text());
+	//var count = Number($("#cookie_count").text());
+
 
 
 	//クリック時処理
 	$("#big_cookie").click(function() {
+		var count = Number($("#cookie_count").text());
+		var total_production = Number($("#total_cookie_count").text());
 		$("#cookie_count").text(++count);
+		$("#total_cookie_count").text(++total_production);
+		console.log($("#total_cookie_count").text())
 	});
 
 
 	//クッキー枚数登録
 
 	setInterval(function() {
-		console.log(count);
+		console.log($("#cookie_count").text());
 		$.ajax({
 			url : '/cookieclicker/countup',
 			type : 'POST',
@@ -117,7 +131,8 @@ $(function(){
 	        dataType: "json",
 			headers: {"auth" : $.cookie("UI")},
 			data : {
-				'cookie_count' : count
+				'cookie_count' : $("#cookie_count").text(),
+				'total_production' : $('#total_cookie_count').text()
 			}
 		})
 	},10000
@@ -127,15 +142,37 @@ $(function(){
 	 */
 
 	$(document).on("click",".item_icon",(function() {
-		$.ajax({
-			url : '/cookieclicker/buy',
-			type : 'POST',
-			auth : String($.cookie("UI")),
-			data : {
-				'item_id' : $(this).attr('id')
-			}
-		})
+		var item_id = $(this).attr('id')
+		var item_cost_id = item_id.replace("picture","item_cost")
+		var item_cost = $("#"+item_cost_id).text();
+
+		var exchange = Number($("#cookie_count").text()) - Number(item_cost)
+		console.log(exchange)
+		if(exchange >0){
+			count = exchange;
+			$("#cookie_count").text(exchange);
+
+			$.ajax({
+				url : '/cookieclicker/buy',
+				type : 'POST',
+		        contentType: 'application/json',
+		        dataType: "json",
+				headers: {"auth" : $.cookie("UI")},
+				data : {
+					'item_id' : $(this).attr('id')
+				}
+			}).done(function(response){
+				var count_buy_item = response.count_buy_item;
+				var count_buy_id = "buy_item_count_"+response.item_id;
+				$("#"+count_buy_id).text(count_buy_item);
+			})
+
+		}else{
+			alert("クッキーが不足しているため、購入できません");
+		}
+
 	}));
+
 
 
 	/**
@@ -170,8 +207,11 @@ $(function(){
 		}).done(function(response){
 
 		var a = "#"+id
-		var increment_num = response;
-		var decrease_num =-response;
+		var count_buy_id = id.replace("item_flg","buy_item_count")
+		var count_buy_item = Number($("#"+count_buy_id).text());
+
+		var increment_num = response*count_buy_item;
+		var decrease_num =-response*count_buy_item;
 
 
 		//ボタン表示を書き換え、オンの場合はレスポンスの値、
@@ -202,7 +242,10 @@ $(function(){
 			total_cnt =0;
 		}
 			set_time =setInterval (function () {
+			var count = Number($("#cookie_count").text());
+			var total_production = Number($("#total_cookie_count").text());
 			$("#cookie_count").text(count+=total_cnt);
+			$("#total_cookie_count").text(total_production+=total_cnt);
 		},1000);
 	}
 
@@ -226,6 +269,24 @@ $(function(){
 		pauseOnDotsHover : false,
 
 	});
+
+	/**
+	 * モーダル表示
+	 */
+
+	$(document).on("click",".modal",(function() {
+			$.ajax({
+				url : '/cookieclicker/totaldisplay',
+				type : 'POST',
+				headers: {"auth" : $.cookie("UI")},
+
+			}).done(function(response){
+				$("#modal").text("これまで生産したクッキーの数は  "+response+" 枚です。")
+				$('.modal').modaal();
+				})
+
+		}
+	));
 
 
 	/**

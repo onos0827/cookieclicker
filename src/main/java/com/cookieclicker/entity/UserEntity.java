@@ -18,6 +18,10 @@ public class UserEntity {
 	@ColumnDefault("0")
 	private Integer countTotalCookie;
 
+	@Column(name="TOTAL_PRODUCTION")
+	@ColumnDefault("0")
+	private Integer totalProduction;
+
 	public String getAuthId() {
 		return authId;
 	}
@@ -32,6 +36,14 @@ public class UserEntity {
 
 	public void setCountTotalCookie(Integer countTotalCookie) {
 		this.countTotalCookie = countTotalCookie;
+	}
+
+	public Integer getTotalProduction() {
+		return totalProduction;
+	}
+
+	public void setTotalProduction(Integer totalProduction) {
+		this.totalProduction = totalProduction;
 	}
 
 }

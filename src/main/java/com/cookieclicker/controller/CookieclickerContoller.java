@@ -1,6 +1,8 @@
 package com.cookieclicker.controller;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +34,7 @@ public class CookieclickerContoller {
 	@RequestMapping("/cookieclicker/display")
 	@ResponseBody
 	public String getDisplatData(@RequestHeader("auth") String auth)  {
-		UserEntity user = new UserEntity();
-		user.setAuthId(auth);
+
 
 		//レスポンス作成用
 		String json = null;
@@ -41,26 +42,42 @@ public class CookieclickerContoller {
 
 
 
-		//ユーザー情報テーブルからauthを検索
-		List<UserEntity> userData = cookieclickerService.find(auth);
-
-
-
-		//新規auth_idををDBへ登録
-		user.setCountTotalCookie(0);
-		cookieclickerService.save(user);
-
-		//画像データ取得
-		List<PictureDataEntity> pictureData = cookieclickerService.findPicture();
 		//アイテムデータ取得(表示順に取得)
 		List<ItemDataEntity> itemData = cookieclickerService.findItem();
+		//画像データ取得
+		List<PictureDataEntity> pictureData = cookieclickerService.findPicture();
+
+
+		//ユーザー情報テーブルからauthを検索
+		List<UserEntity> userData = cookieclickerService.find(auth);
+		if(userData.isEmpty() == true) {
+
+			//新規auth_idををDBへ登録
+			UserEntity user = new UserEntity();
+			user.setAuthId(auth);
+			user.setCountTotalCookie(0);
+			user.setTotalProduction(0);
+			cookieclickerService.save(user);
+
+			//アイテム購入状況初期データ登録
+			for(int i=0; i<itemData.size(); i++) {
+				ItemBuyStatusEntity ItemBuyStatus = new ItemBuyStatusEntity();
+				ItemBuyStatus.setAuthId(auth);
+				ItemBuyStatus.setItemId(itemData.get(i).getItemId());
+				ItemBuyStatus.setCountBuyItem(0);
+				ItemBuyStatus.setEnabledFlg(0);
+				cookieclickerService.saveItemBuyStatus(ItemBuyStatus);
+			}
+
+			userData = cookieclickerService.find(auth);
+		}
+
 		//購入状況データ取得
 		List<ItemBuyStatusEntity> itemBuyStatus = cookieclickerService.findItemBuyStatus(auth);
 
-
-
 		//レスポンス作成
 		json = "{\"auth\":\""+userData.get(0).getAuthId()+"\",\"count_total_cookie\":\""+userData.get(0).getCountTotalCookie()+"\",";
+		json = "{\"auth\":\""+userData.get(0).getAuthId()+"\",\"count_total_cookie\":\""+userData.get(0).getCountTotalCookie()+"\",\"total_production\":\""+userData.get(0).getTotalProduction()+"\",";
 
 		//item項目部分作成用
 		String itemList ="[";
@@ -72,15 +89,9 @@ public class CookieclickerContoller {
 			itemList = itemList+"\"item_name\":\""+itemData.get(i).getItemName()+"\",";
 			itemList = itemList+"\"item_cost\":\""+itemData.get(i).getItemCost()+"\",";
 			itemList = itemList+"\"increase_cookie\":\""+itemData.get(i).getIncreaseCookie()+"\",";
+			itemList = itemList+"\"enabled_flg\":\""+itemBuyStatus.get(i).getEnabledFlg()+"\",";
+			itemList = itemList+"\"count_buy_item\":\""+itemBuyStatus.get(i).getCountBuyItem()+"\"},";
 
-			//アイテム購入状況テーブルが未登録だった場合、フラグ=OFF, 購入数=0を返す
-			if(itemBuyStatus.size()==0 || itemBuyStatus.get(i).getCountBuyItem().equals(null)) {
-				itemList = itemList+"\"enabled_flg\":\"OFF\",";
-				itemList = itemList+"\"count_buy_item\":\""+0+"\"},";
-			}else {
-				itemList = itemList+"\"enabled_flg\":\""+itemBuyStatus.get(i).getEnabledFlg()+"\",";
-				itemList = itemList+"\"count_buy_item\":\""+itemBuyStatus.get(i).getCountBuyItem()+"\"},";
-			}
 		};
 		//事前に作成したauth項目と連結し、不正なJSON形式にならないよう置換
 		json=json+"\"items\":"+itemList+"]}";
@@ -92,16 +103,58 @@ public class CookieclickerContoller {
 
 	@RequestMapping("/cookieclicker/countup")
 	@ResponseBody
-	public Integer updateCookieCount(@RequestHeader("auth") String auth, @RequestBody String cokkiecount) {
+	public Integer updateCookieCount(@RequestHeader("auth") String auth, @RequestBody String request) {
+
+		Pattern cookieReg = Pattern.compile("cookie_count=(.*?)&");
+        Matcher cookieRegMatch = cookieReg.matcher(request);
+
+		Pattern totalProductionReg = Pattern.compile("total_production=(.*?)$");
+        Matcher totalProductionRegMatch = totalProductionReg.matcher(request);
 
 		//クッキー合計枚数登録
 		UserEntity user = new UserEntity();
 		user.setAuthId(auth);
-		user.setCountTotalCookie(Integer.parseInt(cokkiecount.replace("cookie_count=","")));
+
+		cookieRegMatch.find();
+		totalProductionRegMatch.find();
+		user.setCountTotalCookie(Integer.parseInt(cookieRegMatch.group(1)));
+		user.setTotalProduction(Integer.parseInt(totalProductionRegMatch.group(1)));
 		UserEntity result = cookieclickerService.save(user);
 
 
 		return result.getCountTotalCookie();
+	}
+
+	@RequestMapping("/cookieclicker/totaldisplay")
+	@ResponseBody
+	public int getTotalProduction(@RequestHeader("auth") String auth) {
+		List<UserEntity> userData = cookieclickerService.find(auth);
+		Integer totalProduction = userData.get(0).getTotalProduction();
+
+		return totalProduction;
+	}
+
+
+	@RequestMapping("/cookieclicker/buy")
+	@ResponseBody
+	public String buyItem(@RequestHeader("auth") String auth, @RequestBody String itemId) {
+
+		String itemIdVal = itemId.replace("item_id=picture_", "");
+
+		Integer itemCount = cookieclickerService.findItemCount(auth, itemIdVal);
+
+		//アイテム購入状況更新
+		ItemBuyStatusEntity ItemBuyStatus = new ItemBuyStatusEntity();
+		ItemBuyStatus.setAuthId(auth);
+		ItemBuyStatus.setItemId(itemIdVal);
+		ItemBuyStatus.setEnabledFlg(0);
+		ItemBuyStatus.setCountBuyItem(itemCount+1);
+
+		ItemBuyStatusEntity result = cookieclickerService.saveItemBuyStatus(ItemBuyStatus);
+
+		String responseJson = "{\"item_id\":\""+result.getItemId()+"\","+"\"count_buy_item\":\""+result.getCountBuyItem()+"\"}";
+
+		return responseJson;
 	}
 
 

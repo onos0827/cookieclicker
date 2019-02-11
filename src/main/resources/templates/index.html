@@ -5,10 +5,12 @@
 <meta charset="UTF-8" />
 <link href="css/slick.css" rel="stylesheet" type="text/css">
 <link href="css/cookieclickerstyle.css" rel="stylesheet" type="text/css">
+<link href="css/modaal.min.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/clicker.js"></script>
+<script type="text/javascript" src="js/modaal.min.js"></script>
 <title>ゲーム画面</title>
 </head>
 <body>
@@ -38,6 +40,7 @@
 
 
 		<!-- 画面右側の表示部分 -->
+
 		<div id="panel_3" style="position: absolute; left: 684px; top: 0px;">
 			<img src="/image//image/panelVertical1.png">
 		</div>
@@ -45,7 +48,9 @@
 			<img src="/image//image/panelVertical1.png">
 		</div>
 
-
+}
+		<button href="#modal" class="modal" style="position: absolute; left: 700px; top: 80px;">クッキー総生産数表示ボタン</button>
+			<div id="modal" style="display:none;">0</div>
 
 		<div id="item_list">
 			<img src="/image/storeTile.jpg">

@@ -54,5 +54,14 @@ public class CookieclickerService {
 		return itemBuyStatus.findByAuthId(auth);
 	}
 
+	public Integer findItemCount(String auth, String itemId) {
+		return itemBuyStatus.findCountBuyItem(auth,itemId);
+	}
+
+	public ItemBuyStatusEntity saveItemBuyStatus(ItemBuyStatusEntity itemBuyStatusEntity) {
+		return itemBuyStatus.save(itemBuyStatusEntity);
+	}
+
+
 
 }
