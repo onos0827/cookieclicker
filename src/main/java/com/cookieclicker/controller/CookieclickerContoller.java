@@ -101,7 +101,7 @@ public class CookieclickerContoller {
 		return responseJson;
 	}
 
-	@RequestMapping("/cookieclicker/countup")
+	//@RequestMapping("/cookieclicker/countup")
 	@ResponseBody
 	public Integer updateCookieCount(@RequestHeader("auth") String auth, @RequestBody String request) {
 
@@ -125,7 +125,7 @@ public class CookieclickerContoller {
 		return result.getCountTotalCookie();
 	}
 
-	@RequestMapping("/cookieclicker/totaldisplay")
+	//@RequestMapping("/cookieclicker/totaldisplay")
 	@ResponseBody
 	public int getTotalProduction(@RequestHeader("auth") String auth) {
 		List<UserEntity> userData = cookieclickerService.find(auth);
@@ -160,14 +160,29 @@ public class CookieclickerContoller {
 
 	@RequestMapping("/cookieclicker/enable")
 	@ResponseBody
-	public int itemFlgUpdate(@RequestHeader("auth") String auth, @RequestBody String request) {
+	public String itemFlgUpdate(@RequestHeader("auth") String auth, @RequestBody String request) {
+
+		Pattern itemIdReg = Pattern.compile("item_id=(.*?)&");
+        Matcher itemIdRegMatch = itemIdReg.matcher(request);
+
+		Pattern enabledFlgReg = Pattern.compile("enabled_flg=(.*?)$");
+        Matcher enabledFlgRegMatch = enabledFlgReg.matcher(request);
+
+        itemIdRegMatch.find();
+        enabledFlgRegMatch.find();
+        String itemId = itemIdRegMatch.group(1);
+        String enabledFlg = enabledFlgRegMatch.group(1);
 
 
-		//テスト用
-		int num = 100;
+        //有効化フラグ更新
+        Integer updateCount = cookieclickerService.saveItemBuyStatusForEnabledFlg(auth, itemId, enabledFlg);
 
+        //アイテム増加数取得
+        List<ItemDataEntity> increaseCookie = cookieclickerService.findIncreaseCookie(itemId);
 
+        //レスポンス作成
+        String responseJson = "{\"increase_cookie\":\""+increaseCookie.get(0).getIncreaseCookie()+"\"}";
 
-		return num;
+		return responseJson;
 	}
 }

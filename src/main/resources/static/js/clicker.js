@@ -48,7 +48,7 @@ $(function(){
 			item_flg.css({'left': '900px','top':top_val});
 			if(result.items[i].enabled_flg == 1){
 				item_flg.text("ON");
-				increase_cookie_onflg = increase_cookie_onflg+Number(result.items[i].increase_cookie);
+				increase_cookie_onflg = increase_cookie_onflg+Number(result.items[i].increase_cookie)*Number(result.items[i].count_buy_item);
 				console.log(increase_cookie_onflg);
 			}else{
 				item_flg.text("OFF");
@@ -192,6 +192,11 @@ $(function(){
 		}
 		click_flg = true;
 
+		if(flg == "OFF"){
+			flg = 1
+		} else{
+			flg = 0
+		}
 
 		//サーバー側にアイテムIDと有効化フラグを送る
 		$.ajax({
@@ -201,22 +206,25 @@ $(function(){
 	        dataType: "json",
 			headers: {"auth" : $.cookie("UI")},
 			data : {
-				'item_id' : id,
+				'item_id' : id.replace("item_flg_",""),
 				'enabled_flg' : flg
 			}
 		}).done(function(response){
+		//var result_enable = JSON.parse(response);
 
 		var a = "#"+id
 		var count_buy_id = id.replace("item_flg","buy_item_count")
 		var count_buy_item = Number($("#"+count_buy_id).text());
 
-		var increment_num = response*count_buy_item;
-		var decrease_num =-response*count_buy_item;
+		var increment_num = response.increase_cookie*count_buy_item;
+		var decrease_num =-response.increase_cookie*count_buy_item;
+		console.log(increment_num)
+		console.log(decrease_num)
 
 
 		//ボタン表示を書き換え、オンの場合はレスポンスの値、
 		//オフの場合はマイナスの値をinterval_item関数に渡す
-		if(flg == 'ON'){
+		if(flg == 0){
 			$(a).text('OFF');
 			interval_item(decrease_num);
 		}else{

@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.cookieclicker.entity.ItemDataEntity;
 
 public interface ItemDataRepository extends JpaRepository <ItemDataEntity, String> {
-	List<ItemDataEntity> findAllByOrderByDisplayOrder();
+	public List<ItemDataEntity> findAllByOrderByDisplayOrder();
+	public List<ItemDataEntity> findByItemId(String itemId);
 }

@@ -3,6 +3,7 @@ package com.cookieclicker.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,5 +18,8 @@ public interface ItemBuyStatusRepository extends JpaRepository<ItemBuyStatusEnti
 	@Query(value="select COUNT_BUY_ITEM from TBL_ITEM_BUY_STATUS a where a.AUTH_ID = :AUTH and a.ITEM_ID= :ITEM_ID",nativeQuery = true)
     public Integer findCountBuyItem(@Param("AUTH") String auth, @Param("ITEM_ID") String itemId);
 
+	@Modifying
+	@Query(value="update TBL_ITEM_BUY_STATUS a set ENABLED_FLG =:ENABLED_FLG where a.AUTH_ID = :AUTH and a.ITEM_ID= :ITEM_ID",nativeQuery = true)
+	public Integer updateByEnabledFlg(@Param("AUTH") String auth, @Param("ITEM_ID") String itemId, @Param("ENABLED_FLG") String enabledFlg);
 
 }

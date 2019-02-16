@@ -50,6 +50,10 @@ public class CookieclickerService {
 		return itemData.findAllByOrderByDisplayOrder();
 	}
 
+	public List<ItemDataEntity> findIncreaseCookie(String itemId) {
+		return itemData.findByItemId(itemId);
+	}
+
 	public List<ItemBuyStatusEntity> findItemBuyStatus(String auth) {
 		return itemBuyStatus.findByAuthId(auth);
 	}
@@ -62,6 +66,9 @@ public class CookieclickerService {
 		return itemBuyStatus.save(itemBuyStatusEntity);
 	}
 
+	public Integer saveItemBuyStatusForEnabledFlg(String auth, String itemId, String enabledFlg) {
+		return itemBuyStatus.updateByEnabledFlg(auth, itemId, enabledFlg);
+	}
 
 
 }
