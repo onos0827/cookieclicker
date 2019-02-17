@@ -218,8 +218,8 @@ $(function(){
 
 		var increment_num = response.increase_cookie*count_buy_item;
 		var decrease_num =-response.increase_cookie*count_buy_item;
-		console.log(increment_num)
-		console.log(decrease_num)
+		console.log(response.increase_cookie)
+		console.log(response.increase_cookie)
 
 
 		//ボタン表示を書き換え、オンの場合はレスポンスの値、
@@ -288,7 +288,8 @@ $(function(){
 				type : 'POST',
 				headers: {"auth" : $.cookie("UI")},
 			}).done(function(response){
-				$("#modal_body_text").text("これまで生産したクッキーの数は  "+response+" 枚です。")
+				var result = JSON.parse(response);
+				$("#modal_body_text").text("これまで生産したクッキーの数は  "+result.total_production+" 枚です。")
 				})
 
 		}
