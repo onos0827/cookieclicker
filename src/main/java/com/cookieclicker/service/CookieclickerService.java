@@ -37,7 +37,6 @@ public class CookieclickerService {
 		return user.findByAuthId(auth);
 	}
 
-
 	public UserEntity save(UserEntity userEntity) {
 		return user.save(userEntity);
 	}

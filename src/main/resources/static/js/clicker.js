@@ -282,15 +282,13 @@ $(function(){
 	 * モーダル表示
 	 */
 
-	$(document).on("click",".modal",(function() {
+	$(document).on("click","#modal_button",(function() {
 			$.ajax({
 				url : '/cookieclicker/totaldisplay',
 				type : 'POST',
 				headers: {"auth" : $.cookie("UI")},
-
 			}).done(function(response){
-				$("#modal").text("これまで生産したクッキーの数は  "+response+" 枚です。")
-				$('.modal').modaal();
+				$("#modal_body_text").text("これまで生産したクッキーの数は  "+response+" 枚です。")
 				})
 
 		}

@@ -5,12 +5,12 @@
 <meta charset="UTF-8" />
 <link href="css/slick.css" rel="stylesheet" type="text/css">
 <link href="css/cookieclickerstyle.css" rel="stylesheet" type="text/css">
-<link href="css/modaal.min.css" rel="stylesheet" type="text/css">
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/clicker.js"></script>
-<script type="text/javascript" src="js/modaal.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <title>ゲーム画面</title>
 </head>
 <body>
@@ -48,9 +48,6 @@
 			<img src="/image//image/panelVertical1.png">
 		</div>
 
-}
-		<button href="#modal" class="modal" style="position: absolute; left: 700px; top: 80px;">クッキー総生産数表示ボタン</button>
-			<div id="modal" style="display:none;">0</div>
 
 		<div id="item_list">
 			<img src="/image/storeTile.jpg">
@@ -59,5 +56,24 @@
 			<img src="/image/storeTile.jpg">
 		</div>
 	</div>
-</body>
+
+
+	<!-- モーダルウィンドウを呼び出すボタン -->
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#myModal" id="modal_button" style="position: absolute; left: 700px; top: 80px;">総生産量表示</button>
+
+	<!-- モーダルウィンドウの中身 -->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">クッキー総生産量</h4>
+				</div>
+				<div class="modal-body" id ="modal_body_text"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </html>

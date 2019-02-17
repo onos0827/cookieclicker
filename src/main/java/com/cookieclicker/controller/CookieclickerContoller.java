@@ -25,12 +25,18 @@ public class CookieclickerContoller {
 	@Autowired
 	private CookieclickerService cookieclickerService;
 
+	/*
+	 * 初期表示
+	 */
 
 	@GetMapping("/cookieclicker")
 	public String screenDisplay() {
 		return "index.html";
 	}
 
+	/*
+	 * ゲーム画面表示情報取得API
+	 */
 	@RequestMapping("/cookieclicker/display")
 	@ResponseBody
 	public String getDisplatData(@RequestHeader("auth") String auth)  {
@@ -101,40 +107,61 @@ public class CookieclickerContoller {
 		return responseJson;
 	}
 
-	//@RequestMapping("/cookieclicker/countup")
-	@ResponseBody
-	public Integer updateCookieCount(@RequestHeader("auth") String auth, @RequestBody String request) {
 
+
+	/*
+	 * クッキーカウントアップAPI
+	 */
+	@RequestMapping("/cookieclicker/countup")
+	@ResponseBody
+	public String updateCookieCount(@RequestHeader("auth") String auth, @RequestBody String request) {
+
+
+		//クッキー合計枚数登録
+		UserEntity user = new UserEntity();
+		user.setAuthId(auth);
+
+		//リクエストからクッキー枚数と総生産量を抜き出し
 		Pattern cookieReg = Pattern.compile("cookie_count=(.*?)&");
         Matcher cookieRegMatch = cookieReg.matcher(request);
 
 		Pattern totalProductionReg = Pattern.compile("total_production=(.*?)$");
         Matcher totalProductionRegMatch = totalProductionReg.matcher(request);
 
-		//クッキー合計枚数登録
-		UserEntity user = new UserEntity();
-		user.setAuthId(auth);
-
 		cookieRegMatch.find();
 		totalProductionRegMatch.find();
+
 		user.setCountTotalCookie(Integer.parseInt(cookieRegMatch.group(1)));
 		user.setTotalProduction(Integer.parseInt(totalProductionRegMatch.group(1)));
 		UserEntity result = cookieclickerService.save(user);
 
+        //レスポンス作成
+        String responseJson = "{\"count_total_cookie\":\""+result.getCountTotalCookie()+"\"}";
 
-		return result.getCountTotalCookie();
+
+		return responseJson;
 	}
 
-	//@RequestMapping("/cookieclicker/totaldisplay")
+	/*
+	 * クッキー総生産量表示API
+	 */
+	@RequestMapping("/cookieclicker/totaldisplay")
 	@ResponseBody
-	public int getTotalProduction(@RequestHeader("auth") String auth) {
-		List<UserEntity> userData = cookieclickerService.find(auth);
-		Integer totalProduction = userData.get(0).getTotalProduction();
+	public String getTotalProduction(@RequestHeader("auth") String auth) {
 
-		return totalProduction;
+		//ユーザー情報テーブルからクッキー総生産量をSELECT
+		List<UserEntity> userData = cookieclickerService.find(auth);
+
+        //レスポンス作成
+        String responseJson = "{\"total_production\":\""+userData.get(0).getTotalProduction()+"\"}";
+
+		return responseJson;
 	}
 
 
+	/*
+	 * アイテム購入API
+	 */
 	@RequestMapping("/cookieclicker/buy")
 	@ResponseBody
 	public String buyItem(@RequestHeader("auth") String auth, @RequestBody String itemId) {
@@ -152,16 +179,21 @@ public class CookieclickerContoller {
 
 		ItemBuyStatusEntity result = cookieclickerService.saveItemBuyStatus(ItemBuyStatus);
 
+		//レスポンス作成
 		String responseJson = "{\"item_id\":\""+result.getItemId()+"\","+"\"count_buy_item\":\""+result.getCountBuyItem()+"\"}";
 
 		return responseJson;
 	}
 
 
+	/*
+	 *アイテム効果有効化API
+	 */
 	@RequestMapping("/cookieclicker/enable")
 	@ResponseBody
 	public String itemFlgUpdate(@RequestHeader("auth") String auth, @RequestBody String request) {
 
+		//リクエストからアイテムIDと有効化フラグの値を抜き出し
 		Pattern itemIdReg = Pattern.compile("item_id=(.*?)&");
         Matcher itemIdRegMatch = itemIdReg.matcher(request);
 
