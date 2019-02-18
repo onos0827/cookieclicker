@@ -123,6 +123,7 @@ $(function(){
 	//クッキー枚数登録
 
 	setInterval(function() {
+		var jsondata = "{\"cookieCount\":\""+$("#cookie_count").text()+"\","+"\"totalProduction\":\""+$('#total_cookie_count').text()+"\"}";
 		console.log($("#cookie_count").text());
 		$.ajax({
 			url : '/cookieclicker/countup',
@@ -130,10 +131,7 @@ $(function(){
 	        contentType: 'application/json',
 	        dataType: "json",
 			headers: {"auth" : $.cookie("UI")},
-			data : {
-				'cookie_count' : $("#cookie_count").text(),
-				'total_production' : $('#total_cookie_count').text()
-			}
+			data : jsondata
 		})
 	},10000
 );
@@ -145,6 +143,7 @@ $(function(){
 		var item_id = $(this).attr('id')
 		var item_cost_id = item_id.replace("picture","item_cost")
 		var item_cost = $("#"+item_cost_id).text();
+		var jsondata = "{\"itemId\":\""+item_id.replace("picture_", "")+"\"}";
 
 		var exchange = Number($("#cookie_count").text()) - Number(item_cost)
 		console.log(exchange)
@@ -158,9 +157,7 @@ $(function(){
 		        contentType: 'application/json',
 		        dataType: "json",
 				headers: {"auth" : $.cookie("UI")},
-				data : {
-					'item_id' : $(this).attr('id')
-				}
+				data : jsondata
 			}).done(function(response){
 				var count_buy_item = response.count_buy_item;
 				var count_buy_id = "buy_item_count_"+response.item_id;
@@ -198,6 +195,9 @@ $(function(){
 			flg = 0
 		}
 
+
+		var jsondata = "{\"itemId\":\""+id.replace("item_flg_","")+"\","+"\"enabledFlg\":\""+flg+"\"}";
+
 		//サーバー側にアイテムIDと有効化フラグを送る
 		$.ajax({
 			url : '/cookieclicker/enable',
@@ -205,10 +205,7 @@ $(function(){
 	        contentType: 'application/json',
 	        dataType: "json",
 			headers: {"auth" : $.cookie("UI")},
-			data : {
-				'item_id' : id.replace("item_flg_",""),
-				'enabled_flg' : flg
-			}
+			data : jsondata
 		}).done(function(response){
 		//var result_enable = JSON.parse(response);
 

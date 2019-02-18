@@ -30,7 +30,7 @@ public class ItemBuyStatusEntity {
 	private Integer countBuyItem;
 
 	@Column(name="ENABLED_FLG")
-	private Integer enabledFlg;
+	private String enabledFlg;
 
 
 	public String getAuthId() {
@@ -58,11 +58,11 @@ public class ItemBuyStatusEntity {
 		this.countBuyItem = countBuyItem;
 	}
 
-	public Integer getEnabledFlg() {
+	public String getEnabledFlg() {
 		return enabledFlg;
 	}
 
-	public void setEnabledFlg(Integer enabledFlg) {
+	public void setEnabledFlg(String enabledFlg) {
 		this.enabledFlg = enabledFlg;
 	}
 
