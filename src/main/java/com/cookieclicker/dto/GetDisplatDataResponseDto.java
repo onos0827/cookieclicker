@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class getDisplatDataResponseDto {
+
+public class GetDisplatDataResponseDto {
 	private String resultCode;
 
 	private String resultMessage;

@@ -15,8 +15,7 @@ $(function(){
 	diplay_info().done(function(responseJson){
 
 
-		var result = JSON.parse(responseJson);
-		console.log(result);
+		var result = responseJson;
 
 		//アイテム部分表示
 		var top_val = 75
@@ -25,30 +24,30 @@ $(function(){
 		$.each(result.items,function(i){
 			top_val = top_val+65;
 			item_icon_top = item_icon_top+64;
-			var icon = $('<div class="item_icon" id="picture_'+result.items[i].item_id+'">');
-			icon.append('<img src="'+ result.items[i].picture_pass_item +'">');
+			var icon = $('<div class="item_icon" id="picture_'+result.items[i].itemId+'">');
+			icon.append('<img src="'+ result.items[i].picturePassItem +'">');
 			icon.css({'left': '700px','top':item_icon_top});
 
-			var buy_count = $('<div class="buy_count" id="buy_item_count_'+result.items[i].item_id+'">');
-			buy_count.append(result.items[i].count_buy_item);
+			var buy_count = $('<div class="buy_count" id="buy_item_count_'+result.items[i].itemId+'">');
+			buy_count.append(result.items[i].countBuyItem);
 			buy_count.css({'left': '950px','top':top_val});
 
 
-			var item_name = $('<div class="item_name" id="item_name_'+result.items[i].item_id+'">');
-			item_name.append(result.items[i].item_name);
+			var item_name = $('<div class="item_name" id="item_name_'+result.items[i].itemId+'">');
+			item_name.append(result.items[i].itemName);
 			item_name.css({'left': '800px','top':top_val});
 
 
-			var item_cost = $('<div class="item_cost" id="item_cost_'+result.items[i].item_id+'">');
-			item_cost.append(result.items[i].item_cost);
+			var item_cost = $('<div class="item_cost" id="item_cost_'+result.items[i].itemId+'">');
+			item_cost.append(result.items[i].itemCost);
 
 
-			var item_flg = $('<div class="item_flg" id="item_flg_'+result.items[i].item_id+'">');
-			item_flg.append(result.items[i].enabled_flg);
+			var item_flg = $('<div class="item_flg" id="item_flg_'+result.items[i].itemId+'">');
+			item_flg.append(result.items[i].enabledFlg);
 			item_flg.css({'left': '900px','top':top_val});
-			if(result.items[i].enabled_flg == 1){
+			if(result.items[i].enabledFlg == 1){
 				item_flg.text("ON");
-				increase_cookie_onflg = increase_cookie_onflg+Number(result.items[i].increase_cookie)*Number(result.items[i].count_buy_item);
+				increase_cookie_onflg = increase_cookie_onflg+Number(result.items[i].increaseCookie)*Number(result.items[i].countBuyItem);
 				console.log(increase_cookie_onflg);
 			}else{
 				item_flg.text("OFF");
@@ -65,8 +64,8 @@ $(function(){
 		});
 
 		//クッキー枚数表示
-		$("#cookie_count").append(result.count_total_cookie);
-		$("#total_cookie_count").append(result.total_production);
+		$("#cookie_count").append(result.countTotalCookie);
+		$("#total_cookie_count").append(result.totalProduction);
 		$('#total_cookie_count').hide();
 
 
@@ -123,7 +122,7 @@ $(function(){
 	//クッキー枚数登録
 
 	setInterval(function() {
-		var jsondata = "{\"cookieCount\":\""+$("#cookie_count").text()+"\","+"\"totalProduction\":\""+$('#total_cookie_count').text()+"\"}";
+		var jsondata = {"cookieCount":$("#cookie_count").text(),"totalProduction":$('#total_cookie_count').text()};
 		console.log($("#cookie_count").text());
 		$.ajax({
 			url : '/cookieclicker/countup',
@@ -131,7 +130,7 @@ $(function(){
 	        contentType: 'application/json',
 	        dataType: "json",
 			headers: {"auth" : $.cookie("UI")},
-			data : jsondata
+			data : JSON.stringify(jsondata)
 		})
 	},10000
 );
@@ -143,7 +142,7 @@ $(function(){
 		var item_id = $(this).attr('id')
 		var item_cost_id = item_id.replace("picture","item_cost")
 		var item_cost = $("#"+item_cost_id).text();
-		var jsondata = "{\"itemId\":\""+item_id.replace("picture_", "")+"\"}";
+		var jsondata = {"itemId":item_id.replace("picture_", "")};
 
 		var exchange = Number($("#cookie_count").text()) - Number(item_cost)
 		console.log(exchange)
@@ -157,7 +156,7 @@ $(function(){
 		        contentType: 'application/json',
 		        dataType: "json",
 				headers: {"auth" : $.cookie("UI")},
-				data : jsondata
+				data : JSON.stringify(jsondata)
 			}).done(function(response){
 				var count_buy_item = response.count_buy_item;
 				var count_buy_id = "buy_item_count_"+response.item_id;
@@ -196,7 +195,7 @@ $(function(){
 		}
 
 
-		var jsondata = "{\"itemId\":\""+id.replace("item_flg_","")+"\","+"\"enabledFlg\":\""+flg+"\"}";
+		var jsondata = {"itemId":id.replace("item_flg_",""),"enabledFlg":flg};
 
 		//サーバー側にアイテムIDと有効化フラグを送る
 		$.ajax({
@@ -205,7 +204,7 @@ $(function(){
 	        contentType: 'application/json',
 	        dataType: "json",
 			headers: {"auth" : $.cookie("UI")},
-			data : jsondata
+			data : JSON.stringify(jsondata)
 		}).done(function(response){
 		//var result_enable = JSON.parse(response);
 

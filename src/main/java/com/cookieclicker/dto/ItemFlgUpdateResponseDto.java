@@ -1,5 +1,8 @@
 package com.cookieclicker.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat
 public class ItemFlgUpdateResponseDto{
 
 	private String resultCode;

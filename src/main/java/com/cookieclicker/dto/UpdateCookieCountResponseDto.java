@@ -1,6 +1,9 @@
 package com.cookieclicker.dto;
 
-public class updateCookieCountResponseDto {
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat
+public class UpdateCookieCountResponseDto {
 	private String resultCode;
 
 	private String resultMessage;

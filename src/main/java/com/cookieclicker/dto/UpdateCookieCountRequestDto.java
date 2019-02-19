@@ -1,6 +1,6 @@
 package com.cookieclicker.dto;
 
-public class updateCookieCountRequestDto {
+public class UpdateCookieCountRequestDto {
 
 
 	private String cookieCount;
