@@ -3,13 +3,13 @@ $(function(){
 	 * 画面表示情報取得処理
 	 */
 	function diplay_info() {
-			return $.ajax({
-				url : '/cookieclicker/display',
-				type : 'POST',
-				   headers: {
-				        "auth" : $.cookie("UI")
-				    }
-			})
+		return $.ajax({
+			url : '/cookieclicker/display',
+			type : 'POST',
+			headers: {
+				"auth" : $.cookie("UI")
+			}
+		})
 	}
 
 	diplay_info().done(function(responseJson){
@@ -24,7 +24,7 @@ $(function(){
 		$.each(result.items,function(i){
 			top_val = top_val+65;
 			item_icon_top = item_icon_top+64;
-			var icon = $('<div class="item_icon" id="picture_'+result.items[i].itemId+'">');
+			var icon = $('<div class="item_icon" data-toggle="tooltip" data-original-title="購入価格：'+result.items[i].itemCost+' 枚" id="picture_'+result.items[i].itemId+'">');
 			icon.append('<img src="'+ result.items[i].picturePassItem +'">');
 			icon.css({'left': '700px','top':item_icon_top});
 
@@ -62,6 +62,12 @@ $(function(){
 			$('.item_cost').hide();
 
 		});
+
+		//アイテム所持数が0のものは有効化ボタンを非活性化
+		$.each(result.items,function(i){
+			if(result.items[i].countBuyItem == 0){
+				$("#item_flg_"+result.items[i].itemId).prop( 'disabled', true )
+			}});
 
 		//クッキー枚数表示
 		$("#cookie_count").append(result.countTotalCookie);
@@ -105,9 +111,6 @@ $(function(){
 	/**
 	 * カウントアップ処理
 	 */
-	//var count = Number($("#cookie_count").text());
-
-
 
 	//クリック時処理
 	$("#big_cookie").click(function() {
@@ -127,13 +130,13 @@ $(function(){
 		$.ajax({
 			url : '/cookieclicker/countup',
 			type : 'POST',
-	        contentType: 'application/json',
-	        dataType: "json",
+			contentType: 'application/json',
+			dataType: "json",
 			headers: {"auth" : $.cookie("UI")},
 			data : JSON.stringify(jsondata)
 		})
 	},10000
-);
+	);
 	/**
 	 *アイテム購入処理
 	 */
@@ -145,7 +148,6 @@ $(function(){
 		var jsondata = {"itemId":item_id.replace("picture_", "")};
 
 		var exchange = Number($("#cookie_count").text()) - Number(item_cost)
-		console.log(exchange)
 		if(exchange >0){
 			count = exchange;
 			$("#cookie_count").text(exchange);
@@ -153,13 +155,19 @@ $(function(){
 			$.ajax({
 				url : '/cookieclicker/buy',
 				type : 'POST',
-		        contentType: 'application/json',
-		        dataType: "json",
+				contentType: 'application/json',
+				dataType: "json",
 				headers: {"auth" : $.cookie("UI")},
 				data : JSON.stringify(jsondata)
 			}).done(function(response){
-				var count_buy_item = response.count_buy_item;
-				var count_buy_id = "buy_item_count_"+response.item_id;
+				var count_buy_item = response.countBuyItem;
+				var count_buy_id = "buy_item_count_"+response.itemId;
+				var item_flg_id = "item_flg_"+response.itemId;
+
+				//初回購入時は非活性になっている有効化ボタンを活性化させる
+				if(count_buy_item == 1){
+					$("#"+item_flg_id).prop( 'disabled', false )
+				}
 				$("#"+count_buy_id).text(count_buy_item);
 			})
 
@@ -180,8 +188,15 @@ $(function(){
 	var flg;
 	var id;
 	$(document).on("click",".item_flg",(function() {
-		 flg = $(this).text();
-		 id = $(this).attr('id');
+		flg = $(this).text();
+		id = $(this).attr('id');
+		var buy_item_count_id = id.replace("item_flg","buy_item_count");
+		var a = "#"+id
+		var count_buy_id = id.replace("item_flg","buy_item_count")
+		var count_buy_item = Number($("#"+count_buy_id).text());
+
+
+
 		//ON OFFボタン連打防止
 		if(click_flg){
 			return false;
@@ -201,36 +216,32 @@ $(function(){
 		$.ajax({
 			url : '/cookieclicker/enable',
 			type : 'POST',
-	        contentType: 'application/json',
-	        dataType: "json",
+			contentType: 'application/json',
+			dataType: "json",
 			headers: {"auth" : $.cookie("UI")},
 			data : JSON.stringify(jsondata)
 		}).done(function(response){
-		//var result_enable = JSON.parse(response);
-
-		var a = "#"+id
-		var count_buy_id = id.replace("item_flg","buy_item_count")
-		var count_buy_item = Number($("#"+count_buy_id).text());
-
-		var increment_num = response.increase_cookie*count_buy_item;
-		var decrease_num =-response.increase_cookie*count_buy_item;
-		console.log(response.increase_cookie)
-		console.log(response.increase_cookie)
 
 
-		//ボタン表示を書き換え、オンの場合はレスポンスの値、
-		//オフの場合はマイナスの値をinterval_item関数に渡す
-		if(flg == 0){
-			$(a).text('OFF');
-			interval_item(decrease_num);
-		}else{
-			$(a).text('ON');
-			interval_item(increment_num);
-		}
+			var increment_num = response.increaseCookie*count_buy_item;
+			var decrease_num =-response.increaseCookie*count_buy_item;
+			console.log(response.increase_cookie)
+			console.log(response.increase_cookie)
 
-		click_flg = false;
 
-	})
+			//ボタン表示を書き換え、オンの場合はレスポンスの値、
+			//オフの場合はマイナスの値をinterval_item関数に渡す
+			if(flg == 0){
+				$(a).text('OFF');
+				interval_item(decrease_num);
+			}else{
+				$(a).text('ON');
+				interval_item(increment_num);
+			}
+
+			click_flg = false;
+
+		})
 	}));
 
 	var total_cnt = 0;
@@ -241,11 +252,7 @@ $(function(){
 		clearInterval(set_time);
 		total_cnt = total_cnt+interval_cnt;
 
-		//小数点以下の場合はクッキー合計が減らないように0固定
-		if(total_cnt<0){
-			total_cnt =0;
-		}
-			set_time =setInterval (function () {
+		set_time =setInterval (function () {
 			var count = Number($("#cookie_count").text());
 			var total_production = Number($("#total_cookie_count").text());
 			$("#cookie_count").text(count+=total_cnt);
@@ -279,18 +286,24 @@ $(function(){
 	 */
 
 	$(document).on("click","#modal_button",(function() {
-			$.ajax({
-				url : '/cookieclicker/totaldisplay',
-				type : 'POST',
-				headers: {"auth" : $.cookie("UI")},
-			}).done(function(response){
-				var result = JSON.parse(response);
-				$("#modal_body_text").text("これまで生産したクッキーの数は  "+result.total_production+" 枚です。")
-				})
+		$.ajax({
+			url : '/cookieclicker/totaldisplay',
+			type : 'POST',
+			headers: {"auth" : $.cookie("UI")},
+		}).done(function(response){
+			$("#modal_body_text").text("これまで生産したクッキーの数は  "+response.totalProduction+" 枚です。")
+		})
 
-		}
+	}
 	));
 
+	/**
+	 * ツールチップ有効化
+	 */
+
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    })
 
 	/**
 	 * スクロールロック

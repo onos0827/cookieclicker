@@ -1,7 +1,5 @@
 package com.cookieclicker.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,10 +17,6 @@ import com.cookieclicker.dto.ItemIdRequestDto;
 import com.cookieclicker.dto.TotalProductionResponseDto;
 import com.cookieclicker.dto.UpdateCookieCountRequestDto;
 import com.cookieclicker.dto.UpdateCookieCountResponseDto;
-import com.cookieclicker.entity.ItemBuyStatusEntity;
-import com.cookieclicker.entity.ItemDataEntity;
-import com.cookieclicker.entity.UserEntity;
-import com.cookieclicker.enumeration.ResultCode;
 import com.cookieclicker.service.CookieclickerService;
 
 @Controller
@@ -62,37 +56,11 @@ public class CookieclickerContoller {
 	public ResponseEntity<UpdateCookieCountResponseDto> updateCookieCount(@RequestHeader("auth") String auth,
 			@RequestBody UpdateCookieCountRequestDto request) {
 
-		//クッキーカウントアップAPIレスポンスDTO初期化
-		UpdateCookieCountResponseDto updateCookieCountResponse = new UpdateCookieCountResponseDto();
+		//クッキー枚数と総生産量をDBへ登録
+		UpdateCookieCountResponseDto cokkieCount = cookieclickerService.updateCookieCountLogic(auth, request);
 
-		try {
-
-			//クッキー合計枚数登録
-			String countTotalCookie = request.getCookieCount();
-			String totalProduction = request.getTotalProduction();
-
-			UserEntity user = new UserEntity();
-			user.setAuthId(auth);
-			user.setCountTotalCookie(Integer.parseInt(countTotalCookie));
-			user.setTotalProduction(Integer.parseInt(totalProduction));
-
-			UserEntity result = cookieclickerService.save(user);
-
-			//レスポンス作成
-			updateCookieCountResponse.setResultCode(ResultCode.OK.getResultCode());
-			updateCookieCountResponse.setResultMessage(ResultCode.OK.getResultMessage());
-			updateCookieCountResponse.setCountTotalCookie(String.valueOf(result.getCountTotalCookie()));
-
-		} catch (Exception e) {
-			//例外発生時はエラーメッセージをレスポンスとして返却
-			e.printStackTrace();
-			updateCookieCountResponse = new UpdateCookieCountResponseDto();
-			updateCookieCountResponse.setResultCode(ResultCode.NG.getResultCode());
-			updateCookieCountResponse.setResultMessage(ResultCode.NG.getResultMessage());
-		} finally {
-			//レスポンスオブジェクトをJSON文字列に変換し、返却
-			return ResponseEntity.ok(updateCookieCountResponse);
-		}
+		//レスポンスオブジェクトをJSON文字列に変換し、返却
+		return ResponseEntity.ok(cokkieCount);
 	}
 
 	/*
@@ -102,28 +70,11 @@ public class CookieclickerContoller {
 	@ResponseBody
 	public ResponseEntity<TotalProductionResponseDto> getTotalProduction(@RequestHeader("auth") String auth) {
 
-		//クッキー総生産量表示APIDTO初期化
-		TotalProductionResponseDto totalProductionResponse = new TotalProductionResponseDto();
+		//クッキー総生産量を取得
+		TotalProductionResponseDto totalProduction = cookieclickerService.getTotalProduction(auth);
 
-		try {
-			//ユーザー情報テーブルからクッキー総生産量をSELECT
-			List<UserEntity> userData = cookieclickerService.find(auth);
-
-			//レスポンス作成
-			totalProductionResponse.setResultCode(ResultCode.OK.getResultCode());
-			totalProductionResponse.setResultMessage(ResultCode.OK.getResultMessage());
-			totalProductionResponse.setTotalProduction(userData.get(0).getAuthId());
-
-		} catch (Exception e) {
-			//例外発生時はエラーメッセージをレスポンスとして返却
-			e.printStackTrace();
-			totalProductionResponse = new TotalProductionResponseDto();
-			totalProductionResponse.setResultCode(ResultCode.NG.getResultCode());
-			totalProductionResponse.setResultMessage(ResultCode.NG.getResultMessage());
-		} finally {
-			//レスポンスオブジェクトをJSON文字列に変換し、返却
-			return ResponseEntity.ok(totalProductionResponse);
-		}
+		//レスポンスオブジェクトをJSON文字列に変換し、返却
+		return ResponseEntity.ok(totalProduction);
 
 	}
 
@@ -135,42 +86,12 @@ public class CookieclickerContoller {
 	public ResponseEntity<BuyItemResponseDto> buyItem(@RequestHeader("auth") String auth,
 			@RequestBody ItemIdRequestDto request) {
 
-		//アイテム購入APIレスポンスDTO初期化
-		BuyItemResponseDto buyItemResponse = new BuyItemResponseDto();
+		//アイテム購入
+		BuyItemResponseDto buyItemData = cookieclickerService.buyItem(auth, request);
 
-		try {
+		//レスポンスオブジェクトをJSON文字列に変換し、返却
+		return ResponseEntity.ok(buyItemData);
 
-			//リクエストからアイテムIDを取得
-			String itemId = request.getItemId();
-
-			Integer itemCount = cookieclickerService.findItemCount(auth, itemId);
-
-			//アイテム購入状況更新
-			ItemBuyStatusEntity ItemBuyStatus = new ItemBuyStatusEntity();
-			ItemBuyStatus.setAuthId(auth);
-			ItemBuyStatus.setItemId(itemId);
-			ItemBuyStatus.setEnabledFlg("0");
-			ItemBuyStatus.setCountBuyItem(itemCount + 1);
-
-			ItemBuyStatusEntity result = cookieclickerService.saveItemBuyStatus(ItemBuyStatus);
-
-			//レスポンス作成
-			buyItemResponse.setResultCode(ResultCode.OK.getResultCode());
-			buyItemResponse.setResultMessage(ResultCode.OK.getResultMessage());
-			buyItemResponse.setItemId(result.getItemId());
-			buyItemResponse.setCountBuyItem(String.valueOf(result.getCountBuyItem()));
-
-		} catch (Exception e) {
-			//例外発生時はエラーメッセージをレスポンスとして返却
-			e.printStackTrace();
-			buyItemResponse = new BuyItemResponseDto();
-			buyItemResponse.setResultCode(ResultCode.NG.getResultCode());
-			buyItemResponse.setResultMessage(ResultCode.NG.getResultMessage());
-
-		} finally {
-			//レスポンスオブジェクトをJSON文字列に変換し、返却
-			return ResponseEntity.ok(buyItemResponse);
-		}
 	}
 
 	/*
@@ -181,34 +102,11 @@ public class CookieclickerContoller {
 	public ResponseEntity<ItemFlgUpdateResponseDto> itemFlgUpdate(@RequestHeader("auth") String auth,
 			@RequestBody ItemFlgUpdateRequestDto request) {
 
-		//アイテム効果有効化APIレスポンスDTO初期化
-		ItemFlgUpdateResponseDto itemFlgUpdateResponse = new ItemFlgUpdateResponseDto();
+		//アイテム効果有効化
+		ItemFlgUpdateResponseDto itemFlgData = cookieclickerService.itemFlgUpdate(auth, request);
 
-		try {
-			//リクエストからアイテムIDと有効化フラグを取得
-			String itemId = request.getItemId();
-			String enabledFlg = request.getEnabledFlg();
-
-			//有効化フラグ更新
-			Integer updateCount = cookieclickerService.saveItemBuyStatusForEnabledFlg(auth, itemId, enabledFlg);
-
-			//アイテム増加数取得
-			List<ItemDataEntity> increaseCookie = cookieclickerService.findIncreaseCookie(itemId);
-
-			//レスポンス作成
-			itemFlgUpdateResponse.setResultCode(ResultCode.OK.getResultCode());
-			itemFlgUpdateResponse.setResultMessage(ResultCode.OK.getResultMessage());
-			itemFlgUpdateResponse.setIncreaseCookie(String.valueOf(increaseCookie.get(0).getIncreaseCookie()));
-
-		} catch (Exception e) {
-			//例外発生時はエラーメッセージをレスポンスとして返却
-			e.printStackTrace();
-			itemFlgUpdateResponse = new ItemFlgUpdateResponseDto();
-			itemFlgUpdateResponse.setResultCode(ResultCode.NG.getResultCode());
-			itemFlgUpdateResponse.setResultMessage(ResultCode.NG.getResultMessage());
-		} finally {
-			//レスポンスオブジェクトをJSON文字列に変換し、返却
-			return ResponseEntity.ok(itemFlgUpdateResponse);
-		}
+		//レスポンスオブジェクトをJSON文字列に変換し、返却
+		return ResponseEntity.ok(itemFlgData);
 	}
+
 }
