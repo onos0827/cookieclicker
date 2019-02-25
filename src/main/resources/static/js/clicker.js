@@ -1,5 +1,32 @@
 $(function(){
 	/**
+	 * auth関連処理
+	 */
+	function create_auth() {
+		//クッキー取得
+		var cookie_info = String($.cookie("UI"));
+		var login_id = cookie_info.replace(undefined, "");
+
+		//文字列ランダム生成
+		var len = 32;
+		var chr = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+		var chr_len = chr.length;
+		for (var i = 0; i < len; i++) {
+			login_id += chr[Math.floor(Math.random() * chr_len)];
+		}
+
+		//クッキー設定
+		$.cookie('UI', login_id.slice(0, 32), {
+			expires : 30,
+			path : '/'
+		});
+	};
+	create_auth();
+
+
+
+	/**
 	 * 画面表示情報取得処理
 	 */
 	function diplay_info() {
@@ -79,34 +106,10 @@ $(function(){
 		interval_item(Number(increase_cookie_onflg));
 
 	}).fail(function(status_code, error_message){
-		alert(error_message);
+		alert("画面の表示に失敗しました");
 	});
 
 
-	/**
-	 * auth関連処理
-	 */
-	function create_auth() {
-		//クッキー取得
-		var cookie_info = String($.cookie("UI"));
-		var login_id = cookie_info.replace(undefined, "");
-
-		//文字列ランダム生成
-		var len = 32;
-		var chr = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-		var chr_len = chr.length;
-		for (var i = 0; i < len; i++) {
-			login_id += chr[Math.floor(Math.random() * chr_len)];
-		}
-
-		//クッキー設定
-		$.cookie('UI', login_id.slice(0, 32), {
-			expires : 30,
-			path : '/'
-		});
-	};
-	create_auth();
 
 	/**
 	 * カウントアップ処理
@@ -137,6 +140,8 @@ $(function(){
 		})
 	},10000
 	);
+
+
 	/**
 	 *アイテム購入処理
 	 */
@@ -148,7 +153,7 @@ $(function(){
 		var jsondata = {"itemId":item_id.replace("picture_", "")};
 
 		var exchange = Number($("#cookie_count").text()) - Number(item_cost)
-		if(exchange >0){
+		if(exchange >=0){
 			count = exchange;
 			$("#cookie_count").text(exchange);
 
@@ -160,15 +165,19 @@ $(function(){
 				headers: {"auth" : $.cookie("UI")},
 				data : JSON.stringify(jsondata)
 			}).done(function(response){
-				var count_buy_item = response.countBuyItem;
-				var count_buy_id = "buy_item_count_"+response.itemId;
-				var item_flg_id = "item_flg_"+response.itemId;
+				if(response.resultCode ==0){
+					var count_buy_item = response.countBuyItem;
+					var count_buy_id = "buy_item_count_"+response.itemId;
+					var item_flg_id = "item_flg_"+response.itemId;
 
-				//初回購入時は非活性になっている有効化ボタンを活性化させる
-				if(count_buy_item == 1){
-					$("#"+item_flg_id).prop( 'disabled', false )
+					//初回購入時は非活性になっている有効化ボタンを活性化させる
+					if(count_buy_item == 1){
+						$("#"+item_flg_id).prop( 'disabled', false )
+					}
+					$("#"+count_buy_id).text(count_buy_item);
+				}else{
+					alert("アイテム購入処理に失敗しました");
 				}
-				$("#"+count_buy_id).text(count_buy_item);
 			})
 
 		}else{
@@ -183,7 +192,6 @@ $(function(){
 	 * アイテム有効化
 	 */
 
-	//アイテム効果有効化処理
 	var click_flg = false;
 	var flg;
 	var id;
@@ -221,26 +229,28 @@ $(function(){
 			headers: {"auth" : $.cookie("UI")},
 			data : JSON.stringify(jsondata)
 		}).done(function(response){
+			if(response.resultCode ==0){
+				var increment_num = response.increaseCookie*count_buy_item;
+				var decrease_num =-response.increaseCookie*count_buy_item;
+				console.log(response.increase_cookie)
+				console.log(response.increase_cookie)
 
 
-			var increment_num = response.increaseCookie*count_buy_item;
-			var decrease_num =-response.increaseCookie*count_buy_item;
-			console.log(response.increase_cookie)
-			console.log(response.increase_cookie)
+				//ボタン表示を書き換え、オンの場合はレスポンスの値、
+				//オフの場合はマイナスの値をinterval_item関数に渡す
+				if(flg == 0){
+					$(a).text('OFF');
+					interval_item(decrease_num);
+				}else{
+					$(a).text('ON');
+					interval_item(increment_num);
+				}
 
+				click_flg = false;
 
-			//ボタン表示を書き換え、オンの場合はレスポンスの値、
-			//オフの場合はマイナスの値をinterval_item関数に渡す
-			if(flg == 0){
-				$(a).text('OFF');
-				interval_item(decrease_num);
 			}else{
-				$(a).text('ON');
-				interval_item(increment_num);
+				alert("アイテム有効化処理に失敗しました。");
 			}
-
-			click_flg = false;
-
 		})
 	}));
 
@@ -301,9 +311,9 @@ $(function(){
 	 * ツールチップ有効化
 	 */
 
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    })
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip();
+	})
 
 	/**
 	 * スクロールロック
