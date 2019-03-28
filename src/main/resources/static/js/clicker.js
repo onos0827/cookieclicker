@@ -313,7 +313,7 @@ $(function(){
 
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip();
-	})
+	});
 
 	/**
 	 * スクロールロック
